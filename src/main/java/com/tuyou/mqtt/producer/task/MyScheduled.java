@@ -18,7 +18,7 @@ public class MyScheduled {
     /**
      * 每天每5秒执行一次
      */
-    @Scheduled(cron = "0 0/5 * * * ?")
+    @Scheduled(cron = "0 1 1/12 * * ?")
     @Transactional(rollbackFor = Exception.class)
     public void executeTask2() {
         //获取最新区块编号
