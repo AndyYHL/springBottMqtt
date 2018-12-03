@@ -114,7 +114,7 @@ public class MqttConfiguration {
         //clientId 客户端ID，生产端和消费端的客户端ID需不同，不然服务器会认为是同一个客户端，会接收不到信息
         //topic 订阅的主题
         MqttPahoMessageDrivenChannelAdapter adapter = new MqttPahoMessageDrivenChannelAdapter(subscribeClientId, clientFactory,
-                "hello","hello1");
+                topic.split(","));
         //超时时间
         adapter.setCompletionTimeout(completionTimeout);
         //转换器
@@ -138,10 +138,12 @@ public class MqttConfiguration {
                 System.out.println(string);
                 String topic = r.getHeaders().get(ClientApiFinal.mqttReceivedTopic).toString();
                 String type = topic.substring(topic.lastIndexOf("/")+1, topic.length());
-                if("hello".equalsIgnoreCase(topic)){
-                    System.out.println("hello,fuckXX,"+r.getPayload().toString());
-                }else if("hello1".equalsIgnoreCase(topic)){
-                    System.out.println("hello1,fuckXX,"+r.getPayload().toString());
+                if("yes".equalsIgnoreCase(topic)){
+                    System.out.println("yes,fuckXX,"+r.getPayload().toString());
+                }else if("good".equalsIgnoreCase(topic)){
+                    System.out.println("good,fuckXX,"+r.getPayload().toString());
+                }else if("test".equalsIgnoreCase(topic)){
+                    System.out.println("test,fuckXX,"+r.getPayload().toString());
                 }
             } catch (MessagingException ex) {
 
