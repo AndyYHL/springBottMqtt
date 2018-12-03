@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: tuyou-mqtt-producer
+  profiles:
+    active: dev
+
+mybatisPlus:
+  mapperLocations: classpath:mapper/*.xml
+  typeEnumsPackage: com.tuyou.mqtt.producer.enumeration
+  globalConfig:
+    dbConfig:
+      idType: uuid
+      tableUnderline: true
+      logicDeleteValue: 1
+      logicNotDeleteValue: 0

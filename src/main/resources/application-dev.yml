@@ -1,0 +1,106 @@
+server:
+  port: 100
+eureka:
+  port: 81
+  instance:
+    hostname: 192.168.40.35
+    prefer-ip-address: true
+    ip-address: ${spring.cloud.inetutils.default-ip-address}
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}
+    lease-renewal-interval-in-seconds: 30
+    status-page-url-path: /api/v1/actuator/info
+    health-check-url-path: /api/v1/actuator/health
+  client:
+    #服务注册中心
+    service-url:
+     defaultZone: http://${eureka.instance.hostname}:${eureka.port}/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+
+#hystrix 配置
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+        #如果enabled设置为false，则请求超时交给ribbon控制
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.40.42:3306/grape?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useUnicode=true&zeroDateTimeBehavior=convertToNull&useSSL=false
+    username: toyou
+    password: Toyou_123
+    initialSize: 3
+    minIdle: 3
+    maxActive: 30
+    maxWait: 15000
+    timeBetweenEvictionRunsMillis: 120000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    removeAbandoned: true
+    removeAbandonedTimeoutMillis: 20000
+    logAbandoned: true
+    logDifferentThread: true
+    filters: wall,stat
+    connectionProperties:  druid.stat.mergeSql=true;druid.stat.logSlowSql=true;druid.stat.slowSqlMillis=3000
+    useGlobalDataSourceStat: true
+    druidRegistrationUrl: /druid/*
+    resetEnable: true
+    loginUsername: admin
+    loginPassword: admin
+    filtersUrlPatterns: /*
+    exclusions: '*.js,*.gif,*.jpg,*.jpeg,*.png,*.css,*.ico,*.jsp,/druid/*'
+    sessionStatMaxCount: 2000
+    sessionStatEnable: true
+    principalSessionName: session_user_key
+    profileEnable: true
+  cloud:
+      inetutils:
+       default-ip-address: ${spring.cloud.client.ip-address}
+       default-hostname: ${spring.cloud.client.ip-address}
+       preferred-networks: ${spring.cloud.client.ip-address}
+mqtt:
+  host: tcp://192.168.40.35:1883
+  username: admin
+  password: public
+  #服务质量
+  #0代表“至多一次”，消息发布完全依赖底层 TCP/IP 网络。会发生消息丢失或重复。这一级别可用于如下情况，环境传感器数据，丢失一次读记录无所谓，因为不久后还会有第二次发送。
+  #1代表“至少一次”，确保消息到达，但消息重复可能会发生。
+  #2代表“只有一次”，确保消息到达一次。这一级别可用于如下情况，在计费系统中，消息重复或丢失会导致不正确的结果。
+  qos: 1
+  #MQTT-默认的消息推送主题，实际可在调用接口时指定
+  dtopic: topic
+  #主题
+  topic: good,test,yes
+  #服务器列表,多个以英文逗号拼接 #MQTT-服务器连接地址，如果有多个，用逗号隔开，如：tcp://127.0.0.1:61613，tcp://192.168.2.133:61613
+  hosts: tcp://192.168.40.35:1883
+  #超时时间 单位为秒
+  connectionTimeout: 10
+  #会话心跳时间 单位为秒
+  keepAliveInterval: 5
+  #消息发布者clientId
+  publishClientId: my_publish_01
+  #消息订阅者clientId
+  subscribeClientId: mqttjs_6bc52be99f
+  #连接超时
+  completionTimeout: 3000
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+
+logging:
+  config: classpath:logback-spring.xml
+
+foreign:
+  privatekey:
+    QIQ4XNKLF&E1UKOZ
