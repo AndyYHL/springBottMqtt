@@ -10,8 +10,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * @author yhl
  * Created by Administrator on 2018-03-13.
+ * 标注此文件为一个配置项，spring boot才会扫描到该配置。该注解类似于之前使用xml进行配置
  */
-@Configuration   //标注此文件为一个配置项，spring boot才会扫描到该配置。该注解类似于之前使用xml进行配置
+@Configuration
 public class MyWebAppConfigurer implements WebMvcConfigurer {
     /**
      * 释放页面静态资源
