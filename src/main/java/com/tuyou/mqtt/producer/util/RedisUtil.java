@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Redis工具类
  *
- * @author ZENG.XIAO.YAN
+ * @author yhl
  * @date 2018年6月7日
  */
 @Component
