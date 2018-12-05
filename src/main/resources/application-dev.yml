@@ -64,6 +64,26 @@ spring:
     sessionStatEnable: true
     principalSessionName: session_user_key
     profileEnable: true
+  redis:
+    host: 192.168.40.35
+    port: 6379
+    database: 0
+    password:
+    jedis:
+      pool:
+        # 连接池中的最大空闲连接
+        max-idle: 300
+        #连接池的最大数据库连接数。设为0表示无限制,如果是jedis 2.4以后用redis.maxTotal
+        #max-active: 600
+        max-active: 8
+        # 连接池中的最小空闲连接
+        min-idle: 0
+    #cluster:
+      #redis集群配置 192.168.177.128:7001,192.168.177.128:7002 可以逗号隔开
+      #nodes: 192.168.40.35:6379
+      #max-redirects: 1
+  session:
+      store-type: redis
   cloud:
       inetutils:
        default-ip-address: ${spring.cloud.client.ip-address}
