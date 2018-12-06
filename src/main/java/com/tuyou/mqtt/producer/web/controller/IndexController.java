@@ -20,7 +20,7 @@ public class IndexController {
         if (user == null) {
             return "用好未登录" + session.getId();
         } else {
-            return "用好已登录" + session.getId();
+            return "用好已登录：用户名："+ user.getUserName() + session.getId();
         }
     }
 
