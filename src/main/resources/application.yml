@@ -1,6 +1,11 @@
 spring:
   application:
     name: tuyou-mqtt-producer
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
   profiles:
     active: dev
 

@@ -13,24 +13,24 @@ import javax.servlet.http.HttpSession;
 @RestController
 @RequestMapping(value = "/")
 public class IndexController {
-    @RequestMapping(value = "/session")
+    @RequestMapping(value = "/session", produces = "text/plain;charset=UTF-8")
     public String getSession(HttpServletRequest request) {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        if (user == null){
+        if (user == null) {
             return "用好未登录" + session.getId();
         } else {
             return "用好已登录" + session.getId();
         }
     }
 
-    @RequestMapping(value = "/get")
+    @RequestMapping(value = "/get", produces = "text/plain;charset=UTF-8")
     public String get(HttpServletRequest request) {
         User user = new User();
         user.setUserName("chf");
         user.setPwd("pass");
         request.getSession().setAttribute("user", user);
 
-        return "登录成功 "  + request.getSession().getId();
+        return "登录成功 " + request.getSession().getId();
     }
 }
