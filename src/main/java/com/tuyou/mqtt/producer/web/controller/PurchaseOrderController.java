@@ -3,12 +3,15 @@ package com.tuyou.mqtt.producer.web.controller;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
 import com.tuyou.mqtt.producer.constant.ClientApiFinal;
+import com.tuyou.mqtt.producer.pojo.dto.TemplateInfoDTO;
 import com.tuyou.mqtt.producer.pojo.vo.ExcelDataVO;
 import com.tuyou.mqtt.producer.pojo.vo.TitlesTtempletVO;
 import com.tuyou.mqtt.producer.util.PoiUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
+import org.apache.http.HttpStatus;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,14 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author yhl
@@ -33,6 +35,9 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = ClientApiFinal.version + "actuator/")
 public class PurchaseOrderController {
+
+    @Autowired
+    private Validator validator;
     
     @GetMapping("info")
     public String info() {
@@ -126,5 +131,15 @@ public class PurchaseOrderController {
         } catch (Exception e) {
             return "失败" + e.getMessage();
         }
+    }
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public String add(TemplateInfoDTO templateInfoDTO){
+        //校验参数
+        Set<ConstraintViolation<TemplateInfoDTO>> violationSet = validator.validate(templateInfoDTO);
+        if(violationSet.size() > 0){
+            Optional<ConstraintViolation<TemplateInfoDTO>> couponDTOConstraintViolation = violationSet.stream().findFirst();
+            return HttpStatus.SC_FAILED_DEPENDENCY+""+couponDTOConstraintViolation.get().getMessage();
+        }
+        return null;
     }
 }
