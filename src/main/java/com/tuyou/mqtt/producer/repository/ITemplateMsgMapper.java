@@ -1,4 +1,4 @@
-package com.tuyou.mqtt.producer.dao;
+package com.tuyou.mqtt.producer.repository;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.tuyou.mqtt.producer.pojo.domain.TemplateInfoDO;

@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Slf4j
 @EnableTransactionManagement
 @Configuration
-@MapperScan(basePackages = {"com.tuyou.mqtt.producer.dao"})
+@MapperScan(basePackages = {"com.tuyou.mqtt.producer.repository"})
 
 /**
  * @author yhl

@@ -1,7 +1,7 @@
 package com.tuyou.mqtt.producer.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.tuyou.mqtt.producer.dao.ITemplateMsgMapper;
+import com.tuyou.mqtt.producer.repository.ITemplateMsgMapper;
 import com.tuyou.mqtt.producer.pojo.domain.TemplateInfoDO;
 import com.tuyou.mqtt.producer.service.ITemplateMsgService;
 import lombok.extern.slf4j.Slf4j;
