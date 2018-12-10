@@ -10,5 +10,10 @@ import org.springframework.messaging.handler.annotation.Header;
  */
 @MessagingGateway(defaultRequestChannel = "mqttOutboundChannel")
 public interface IMqttGateway {
+    /**
+     * 消息推送
+     * @param data 推送的消息
+     * @param topic 发送的主题
+     */
     void sendToMqtt(String data,@Header(MqttHeaders.TOPIC) String topic);
 }

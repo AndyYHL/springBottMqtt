@@ -42,8 +42,8 @@ public class MQTTServerController {
      * @return
      */
     @RequestMapping("sendMqtt.do")
-    public String sendMqtt(@RequestParam String  sendData){
-        mqttGateway.sendToMqtt(sendData,"hello2222");
+    public String sendMqtt(@RequestParam(value = "sendData")String  sendData,@RequestParam(value = "topic") String topic){
+        mqttGateway.sendToMqtt(sendData,topic);
         return "OK";
     }
 }
