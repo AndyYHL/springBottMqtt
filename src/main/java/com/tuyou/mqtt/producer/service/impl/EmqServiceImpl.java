@@ -57,13 +57,13 @@ public class EmqServiceImpl implements IEmqService {
         message.setQos(mqttConfiguration.getQos());
         message.setRetained(true);
         try {
-            MqttClient mqttClient = this.connect(mqttConfiguration.getPublishClientId(), mqttConfiguration.getUsername(),
+            MqttClient mqttClient = this.connect(mqttConfiguration.getSubscribeClientId(), mqttConfiguration.getUsername(),
                     mqttConfiguration.getPassword());
             // 判定是否需要重新连接
             /*String clientId =  UUID.randomUUID().toString() +
                     "[" + InetAddress.getLocalHost().getHostAddress() + "]";*/
-            if (mqttClient == null || !mqttClient.isConnected() || !mqttClient.getClientId().equals(mqttConfiguration.getPublishClientId())) {
-                mqttClient = this.connect(mqttConfiguration.getPublishClientId(), mqttConfiguration.getUsername(),
+            if (mqttClient == null || !mqttClient.isConnected() || !mqttClient.getClientId().equals(mqttConfiguration.getSubscribeClientId())) {
+                mqttClient = this.connect(mqttConfiguration.getSubscribeClientId(), mqttConfiguration.getUsername(),
                         mqttConfiguration.getPassword());
             }
             log.info("emq订阅的topic: {}", topic, message);
