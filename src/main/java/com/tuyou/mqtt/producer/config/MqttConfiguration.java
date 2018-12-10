@@ -44,10 +44,11 @@ public class MqttConfiguration {
     private String subscribeClientId;
     private boolean retained;
     private String dtopic;
-    private int completionTimeout ;
+    private int completionTimeout;
 
     /**
      * 消息通道 生产
+     *
      * @return
      */
     @Bean
@@ -57,6 +58,7 @@ public class MqttConfiguration {
 
     /**
      * 消息通道 订阅
+     *
      * @return
      */
     @Bean
@@ -66,18 +68,21 @@ public class MqttConfiguration {
 
     /**
      * 链接打开MQTT数据，配置链接
+     *
      * @return
      */
-    private MqttConnectOptions getMqttConnectOptions(){
-        MqttConnectOptions mqttConnectOptions=new MqttConnectOptions();
+    private MqttConnectOptions getMqttConnectOptions() {
+        MqttConnectOptions mqttConnectOptions = new MqttConnectOptions();
         mqttConnectOptions.setUserName(username);
         mqttConnectOptions.setPassword(password.toCharArray());
         mqttConnectOptions.setServerURIs(hosts);
         mqttConnectOptions.setKeepAliveInterval(2);
         return mqttConnectOptions;
     }
+
     /**
      * mqtt服务器配置
+     *
      * @return
      */
     @Bean
@@ -89,6 +94,7 @@ public class MqttConfiguration {
 
     /**
      * 通道适配器
+     *
      * @param clientFactory
      * @return
      */
@@ -105,6 +111,7 @@ public class MqttConfiguration {
 
     /**
      * 通道适配器
+     *
      * @param clientFactory
      * @param mqttInputChannel
      * @return
@@ -126,24 +133,27 @@ public class MqttConfiguration {
 
     /**
      * 消息处理
+     *
      * @return
      */
     @Bean
     @ServiceActivator(inputChannel = "mqttInputChannel")
     public MessageHandler handler() {
-        return r->{
+        return r -> {
             try {
                 //这里拿到发布的消息内容，做具体的业务逻辑处理
                 String string = r.getPayload().toString();
                 System.out.println(string);
                 String topic = r.getHeaders().get(ClientApiFinal.mqttReceivedTopic).toString();
-                String type = topic.substring(topic.lastIndexOf("/")+1, topic.length());
-                if("yes".equalsIgnoreCase(topic)){
-                    System.out.println("yes,fuckXX,"+r.getPayload().toString());
-                }else if("good".equalsIgnoreCase(topic)){
-                    System.out.println("good,fuckXX,"+r.getPayload().toString());
-                }else if("test".equalsIgnoreCase(topic)){
-                    System.out.println("test,fuckXX,"+r.getPayload().toString());
+                String type = topic.substring(topic.lastIndexOf("/") + 1, topic.length());
+                if ("yes".equalsIgnoreCase(topic)) {
+                    System.out.println("yes,fuckXX," + r.getPayload().toString());
+                } else if ("good".equalsIgnoreCase(topic)) {
+                    System.out.println("good,fuckXX," + r.getPayload().toString());
+                } else if ("test".equalsIgnoreCase(topic)) {
+                    System.out.println("test,fuckXX," + r.getPayload().toString());
+                } else if ("wiz_publish".equalsIgnoreCase(topic)){
+                    System.out.println("wiz_publish,周静测试发送：" + r.getPayload().toString());
                 }
             } catch (MessagingException ex) {
 
