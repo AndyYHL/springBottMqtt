@@ -52,7 +52,7 @@ public class EmqServiceImpl implements IEmqService {
     @Override
     public Boolean subscribe(String topic) {
         String content = "topic_subscribe";
-        log.info("MQ===public=== 入参:topic:{};content:{}", topic, content);
+        log.info("MQ===subscribe=== 入参:topic:{}", topic);
         MqttMessage message = new MqttMessage(content.getBytes());
         message.setQos(mqttConfiguration.getQos());
         message.setRetained(true);
@@ -66,8 +66,8 @@ public class EmqServiceImpl implements IEmqService {
                 mqttClient = this.connect(mqttConfiguration.getPublishClientId(), mqttConfiguration.getUsername(),
                         mqttConfiguration.getPassword());
             }
+            log.info("emq订阅的topic: {}", topic, message);
             mqttClient.subscribe(topic,message.getQos());
-            log.info("emq已发topic: {} - message: {}", topic, message);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
