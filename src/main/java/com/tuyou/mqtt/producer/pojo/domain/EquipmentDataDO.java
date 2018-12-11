@@ -10,6 +10,7 @@ import java.util.Date;
 
 /**
  * 设备数据
+ * @author yhl
  */
 @Data
 @TableName("equipment_data")
