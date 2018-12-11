@@ -151,8 +151,6 @@ public class MqttConfiguration {
         return r -> {
             try {
                 //这里拿到发布的消息内容，做具体的业务逻辑处理
-                String string = r.getPayload().toString();
-                System.out.println(string);
                 String topic = r.getHeaders().get(ClientApiFinal.mqttReceivedTopic).toString();
                 String message = r.getPayload().toString();
                 String type = topic.substring(topic.lastIndexOf("/") + 1, topic.length());
