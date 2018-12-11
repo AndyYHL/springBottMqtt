@@ -96,14 +96,22 @@ public class EquipmentInfoServiceImpl extends ServiceImpl<EquipmentInfoMapper, E
      * @Description 查询设备信息详情
      */
     @Override
-    public EquipmentInfoDTO findEquipmentInfo(EquipmentInfoDTO equipmentInfoDTO) {
-        // 判断是否已经存在此设备
-        QueryWrapper<EquipmentInfoDO> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lambda().eq(EquipmentInfoDO::getEquipmentNo, equipmentInfoDTO.getEquipmentNo());
-        EquipmentInfoDO equipmentInfoDO = super.baseMapper.selectOne(queryWrapper);
+    public EquipmentInfoVO findEquipmentInfo(EquipmentInfoDTO equipmentInfoDTO) {
+        EquipmentInfoVO equipmentInfoVO = new EquipmentInfoVO();
+        EquipmentInfoDO equipmentInfoDO;
+
+        if (StringUtils.isNotBlank(equipmentInfoDTO.getEquipmentNo())) {
+            // 判断是否已经存在此设备
+            QueryWrapper<EquipmentInfoDO> queryWrapper = new QueryWrapper<>();
+            queryWrapper.lambda().eq(EquipmentInfoDO::getEquipmentNo, equipmentInfoDTO.getEquipmentNo());
+            equipmentInfoDO = super.baseMapper.selectOne(queryWrapper);
+        } else {
+            equipmentInfoDO = super.baseMapper.selectById(equipmentInfoDTO.getEquipmentId());
+        }
+
         if (null == equipmentInfoDO) {
-            BeanUtils.copyProperties(equipmentInfoDO, equipmentInfoDTO);
-            return equipmentInfoDTO;
+            BeanUtils.copyProperties(equipmentInfoDO, equipmentInfoVO);
+            return equipmentInfoVO;
         }
         return null;
     }
@@ -114,7 +122,7 @@ public class EquipmentInfoServiceImpl extends ServiceImpl<EquipmentInfoMapper, E
      * @Description 查询列表设备信息列表 分页可有可无
      */
     @Override
-    public List<EquipmentInfoDTO> findEquipmentInfoList(EquipmentInfoDTO equipmentInfoDTO) {
+    public List<EquipmentInfoVO> findEquipmentInfoList(EquipmentInfoDTO equipmentInfoDTO) {
         QueryWrapper<EquipmentInfoDO> queryWrapper = new QueryWrapper<>();
         // lambada 条件
         LambdaQueryWrapper<EquipmentInfoDO> lambdaQueryWrapper = queryWrapper.lambda();
@@ -145,8 +153,8 @@ public class EquipmentInfoServiceImpl extends ServiceImpl<EquipmentInfoMapper, E
         System.out.println(queryWrapper.getSqlSegment());
 
         List<EquipmentInfoDO> equipmentInfoDOList = super.baseMapper.selectList(queryWrapper);
-        List<EquipmentInfoDTO> equipmentInfoDTOList = JSON.parseArray(JSON.toJSONString(equipmentInfoDOList), EquipmentInfoDTO.class);
-        return equipmentInfoDTOList;
+        List<EquipmentInfoVO> equipmentInfoVOList = JSON.parseArray(JSON.toJSONString(equipmentInfoDOList), EquipmentInfoVO.class);
+        return equipmentInfoVOList;
     }
 
     /**
@@ -155,7 +163,7 @@ public class EquipmentInfoServiceImpl extends ServiceImpl<EquipmentInfoMapper, E
      * @Description 查询列表设备信息(带分页)
      */
     @Override
-    public List<EquipmentInfoDTO> findEquipmentInfoLimit(EquipmentInfoDTO equipmentInfoDTO, ExtLimit extLimit) {
+    public List<EquipmentInfoVO> findEquipmentInfoLimit(EquipmentInfoDTO equipmentInfoDTO, ExtLimit extLimit) {
         QueryWrapper<EquipmentInfoDO> queryWrapper = new QueryWrapper<>();
         // lambada 条件
         LambdaQueryWrapper<EquipmentInfoDO> lambdaQueryWrapper = queryWrapper.lambda();
@@ -185,22 +193,22 @@ public class EquipmentInfoServiceImpl extends ServiceImpl<EquipmentInfoMapper, E
         queryWrapper.lambda().orderByDesc(EquipmentInfoDO::getCreatedTime);
         System.out.println(queryWrapper.getSqlSegment());
 
-        List<EquipmentInfoDTO> equipmentInfoDTOList = new ArrayList<>();
+        List<EquipmentInfoVO> equipmentInfoVOList = new ArrayList<>();
         if (null == extLimit) {
             List<EquipmentInfoDO> equipmentInfoDOList = super.baseMapper.selectList(queryWrapper);
             if (equipmentInfoDOList.size() > 0) {
-                equipmentInfoDTOList = JSON.parseArray(JSON.toJSONString(equipmentInfoDOList), EquipmentInfoDTO.class);
+                equipmentInfoVOList = JSON.parseArray(JSON.toJSONString(equipmentInfoDOList), EquipmentInfoVO.class);
             }
-            return equipmentInfoDTOList;
+            return equipmentInfoVOList;
         }
 
         Integer count = super.baseMapper.selectCount(queryWrapper);
         IPage<EquipmentInfoDO> equipmentInfoDOIPage = new Page<>(extLimit.getPageindex(), extLimit.getPagesize(), count.longValue());
         IPage<EquipmentInfoDO> equipmentInfoDOList = super.baseMapper.selectPage(equipmentInfoDOIPage, queryWrapper);
         if (equipmentInfoDOList.getRecords().size() > 0) {
-            equipmentInfoDTOList = JSON.parseArray(JSON.toJSONString(equipmentInfoDOList.getRecords()), EquipmentInfoDTO.class);
+            equipmentInfoVOList = JSON.parseArray(JSON.toJSONString(equipmentInfoDOList.getRecords()), EquipmentInfoVO.class);
         }
         extLimit.setCount(new Long(equipmentInfoDOList.getTotal()).intValue());
-        return equipmentInfoDTOList;
+        return equipmentInfoVOList;
     }
 }
