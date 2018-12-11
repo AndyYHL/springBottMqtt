@@ -15,6 +15,7 @@ import java.util.Map;
  */
 public interface IEquipmentInfoService{
 	/**
+     * 新增设备信息
      * @Description 新增设备信息
      * @param equipmentInfoDTO 请求equipmentInfoDTO数据
      * @return 响应Integer数据
@@ -29,6 +30,7 @@ public interface IEquipmentInfoService{
     Integer saveEquipmentInfoNotNull(EquipmentInfoDTO equipmentInfoDTO);
 
     /**
+     * 修改设备信息
      * @Description 修改设备信息
      * @param equipmentInfoDTO 请求equipmentInfoDTO数据
      * @return 响应boolean数据
@@ -36,6 +38,7 @@ public interface IEquipmentInfoService{
     boolean uptEquipmentInfo(EquipmentInfoDTO equipmentInfoDTO);
 
     /**
+     * 删除设备信息
      * @Description 删除设备信息
      * @param equipmentInfoDTO 请求equipmentInfoDTO数据
      * @return 响应Integer数据
@@ -43,6 +46,7 @@ public interface IEquipmentInfoService{
     Integer delEquipmentInfo(EquipmentInfoDTO equipmentInfoDTO);
 
     /**
+     * 查询设备信息详情
      * @Description 查询设备信息详情
      * @param equipmentInfoDTO 请求equipmentInfoDTO数据
      * @return 响应EquipmentInfoVO数据
@@ -50,6 +54,7 @@ public interface IEquipmentInfoService{
     EquipmentInfoVO findEquipmentInfo(EquipmentInfoDTO equipmentInfoDTO);
 
     /**
+     * 查询列表设备信息列表
      * @Description 查询列表设备信息列表 
      * @param equipmentInfoDTO 请求equipmentInfoDTO数据
      * @return 响应List<equipmentInfoVO>数据
@@ -57,6 +62,7 @@ public interface IEquipmentInfoService{
     List<EquipmentInfoVO> findEquipmentInfoList(EquipmentInfoDTO equipmentInfoDTO);
 
     /**
+     *  查询列表设备信息(带分页)
      * @Description 查询列表设备信息(带分页)
      * @param equipmentInfoDTO 请求equipmentInfoDTO数据
      * @return 响应List<equipmentInfoVO>数据

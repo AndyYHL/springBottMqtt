@@ -15,6 +15,7 @@ import java.util.Map;
  */
 public interface IEquipmentDataService{
 	/**
+     * 新增设备数据
      * @Description 新增设备数据
      * @param equipmentDataDTO 请求equipmentDataDTO数据
      * @return 响应Integer数据
@@ -29,6 +30,7 @@ public interface IEquipmentDataService{
     Integer saveEquipmentDataNotNull(EquipmentDataDTO equipmentDataDTO);
 
     /**
+     * 修改设备数据
      * @Description 修改设备数据
      * @param equipmentDataDTO 请求equipmentDataDTO数据
      * @return 响应boolean数据
@@ -36,6 +38,7 @@ public interface IEquipmentDataService{
     boolean uptEquipmentData(EquipmentDataDTO equipmentDataDTO);
 
     /**
+     * 删除设备数据
      * @Description 删除设备数据
      * @param equipmentDataDTO 请求equipmentDataDTO数据
      * @return 响应Integer数据
@@ -43,6 +46,7 @@ public interface IEquipmentDataService{
     Integer delEquipmentData(EquipmentDataDTO equipmentDataDTO);
 
     /**
+     * 查询设备数据详情
      * @Description 查询设备数据详情
      * @param equipmentDataDTO 请求equipmentDataDTO数据
      * @return 响应EquipmentDataVO数据
@@ -50,6 +54,7 @@ public interface IEquipmentDataService{
     EquipmentDataVO findEquipmentData(EquipmentDataDTO equipmentDataDTO);
 
     /**
+     * 查询列表设备数据列表
      * @Description 查询列表设备数据列表 
      * @param equipmentDataDTO 请求equipmentDataDTO数据
      * @return 响应List<equipmentDataVO>数据
@@ -57,6 +62,7 @@ public interface IEquipmentDataService{
     List<EquipmentDataVO> findEquipmentDataList(EquipmentDataDTO equipmentDataDTO);
 
     /**
+     * 查询列表设备数据(带分页)
      * @Description 查询列表设备数据(带分页)
      * @param equipmentDataDTO 请求equipmentDataDTO数据
      * @return 响应List<equipmentDataVO>数据

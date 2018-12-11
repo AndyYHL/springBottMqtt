@@ -12,6 +12,8 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * 消息处理
  *
@@ -44,9 +46,8 @@ public class MessageHandleServiceImpl implements IMessageHandleService {
                 } else if (TopicEnum.OILTANKDATA.getDescription().equalsIgnoreCase(topic)) {
 
                     log.info("设备采集数据，主题:{},内容:{}", topic, message);
-                    EquipmentDataDTO equipmentDataDTO = JSON.parseObject(message, EquipmentDataDTO.class);
-                    equipmentDataService.saveEquipmentData(equipmentDataDTO);
-
+                    List<EquipmentDataDTO> equipmentDataDTOList = JSON.parseArray(JSON.toJSONString(message), EquipmentDataDTO.class);
+                    equipmentDataDTOList.stream().forEach(r -> equipmentDataService.saveEquipmentData(r));
                 }
             } catch (Exception ex) {
                 log.info("消息处理异常：主题:{},内容:{},异常内容:{}", topic, message, ex.getMessage());
