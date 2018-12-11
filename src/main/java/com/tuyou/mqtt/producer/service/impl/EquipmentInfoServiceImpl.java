@@ -1,13 +1,18 @@
 package com.tuyou.mqtt.producer.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.tuyou.mqtt.producer.pojo.domain.EquipmentDataDO;
 import com.tuyou.mqtt.producer.pojo.domain.EquipmentInfoDO;
+import com.tuyou.mqtt.producer.pojo.dto.EquipmentDataDTO;
 import com.tuyou.mqtt.producer.repository.EquipmentInfoMapper;
 import com.tuyou.mqtt.producer.service.IEquipmentInfoService;
 import com.tuyou.mqtt.producer.util.json.ExtLimit;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.tuyou.mqtt.producer.pojo.dto.EquipmentInfoDTO;
 import com.tuyou.mqtt.producer.pojo.vo.EquipmentInfoVO;
@@ -15,6 +20,7 @@ import org.springframework.beans.BeanUtils;
 import org.apache.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -64,7 +70,14 @@ public class EquipmentInfoServiceImpl extends ServiceImpl<EquipmentInfoMapper, E
      */
     @Override
     public boolean uptEquipmentInfo(EquipmentInfoDTO equipmentInfoDTO) {
-        return false;
+        EquipmentInfoDO equipmentInfoDO = new EquipmentInfoDO();
+        BeanUtils.copyProperties(equipmentInfoDTO, equipmentInfoDO);
+
+        int uptCount = super.baseMapper.updateById(equipmentInfoDO);
+        if (uptCount == 0) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -88,8 +101,8 @@ public class EquipmentInfoServiceImpl extends ServiceImpl<EquipmentInfoMapper, E
         QueryWrapper<EquipmentInfoDO> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda().eq(EquipmentInfoDO::getEquipmentNo, equipmentInfoDTO.getEquipmentNo());
         EquipmentInfoDO equipmentInfoDO = super.baseMapper.selectOne(queryWrapper);
-        if (null == equipmentInfoDO){
-            BeanUtils.copyProperties(equipmentInfoDO,equipmentInfoDTO);
+        if (null == equipmentInfoDO) {
+            BeanUtils.copyProperties(equipmentInfoDO, equipmentInfoDTO);
             return equipmentInfoDTO;
         }
         return null;
@@ -102,7 +115,38 @@ public class EquipmentInfoServiceImpl extends ServiceImpl<EquipmentInfoMapper, E
      */
     @Override
     public List<EquipmentInfoDTO> findEquipmentInfoList(EquipmentInfoDTO equipmentInfoDTO) {
-        return null;
+        QueryWrapper<EquipmentInfoDO> queryWrapper = new QueryWrapper<>();
+        // lambada 条件
+        LambdaQueryWrapper<EquipmentInfoDO> lambdaQueryWrapper = queryWrapper.lambda();
+        lambdaQueryWrapper.eq(EquipmentInfoDO::getEnterpriseId, equipmentInfoDTO.getEnterpriseId());
+
+        // 站点不为空
+        if (null != equipmentInfoDTO.getStationId()) {
+            lambdaQueryWrapper.eq(EquipmentInfoDO::getStationId, equipmentInfoDTO.getStationId());
+        }
+        // 设备编号
+        if (StringUtils.isNotBlank(equipmentInfoDTO.getEquipmentNo())) {
+            lambdaQueryWrapper.eq(EquipmentInfoDO::getEquipmentNo, equipmentInfoDTO.getEquipmentNo());
+        }
+        // 设备名称
+        if (StringUtils.isNotBlank(equipmentInfoDTO.getEquipmentName())) {
+            lambdaQueryWrapper.eq(EquipmentInfoDO::getEquipmentName, equipmentInfoDTO.getEquipmentName());
+        }
+        // 设备状态
+        if (null != equipmentInfoDTO.getStatus()) {
+            lambdaQueryWrapper.eq(EquipmentInfoDO::getStatus, equipmentInfoDTO.getStatus());
+        }
+        // 设备类型
+        if (null != equipmentInfoDTO.getEquipmentType()) {
+            lambdaQueryWrapper.eq(EquipmentInfoDO::getEquipmentType, equipmentInfoDTO.getEquipmentType());
+        }
+
+        queryWrapper.lambda().orderByDesc(EquipmentInfoDO::getCreatedTime);
+        System.out.println(queryWrapper.getSqlSegment());
+
+        List<EquipmentInfoDO> equipmentInfoDOList = super.baseMapper.selectList(queryWrapper);
+        List<EquipmentInfoDTO> equipmentInfoDTOList = JSON.parseArray(JSON.toJSONString(equipmentInfoDOList), EquipmentInfoDTO.class);
+        return equipmentInfoDTOList;
     }
 
     /**
@@ -112,6 +156,51 @@ public class EquipmentInfoServiceImpl extends ServiceImpl<EquipmentInfoMapper, E
      */
     @Override
     public List<EquipmentInfoDTO> findEquipmentInfoLimit(EquipmentInfoDTO equipmentInfoDTO, ExtLimit extLimit) {
-        return null;
+        QueryWrapper<EquipmentInfoDO> queryWrapper = new QueryWrapper<>();
+        // lambada 条件
+        LambdaQueryWrapper<EquipmentInfoDO> lambdaQueryWrapper = queryWrapper.lambda();
+        lambdaQueryWrapper.eq(EquipmentInfoDO::getEnterpriseId, equipmentInfoDTO.getEnterpriseId());
+
+        // 站点不为空
+        if (null != equipmentInfoDTO.getStationId()) {
+            lambdaQueryWrapper.eq(EquipmentInfoDO::getStationId, equipmentInfoDTO.getStationId());
+        }
+        // 设备编号
+        if (StringUtils.isNotBlank(equipmentInfoDTO.getEquipmentNo())) {
+            lambdaQueryWrapper.eq(EquipmentInfoDO::getEquipmentNo, equipmentInfoDTO.getEquipmentNo());
+        }
+        // 设备名称
+        if (StringUtils.isNotBlank(equipmentInfoDTO.getEquipmentName())) {
+            lambdaQueryWrapper.eq(EquipmentInfoDO::getEquipmentName, equipmentInfoDTO.getEquipmentName());
+        }
+        // 设备状态
+        if (null != equipmentInfoDTO.getStatus()) {
+            lambdaQueryWrapper.eq(EquipmentInfoDO::getStatus, equipmentInfoDTO.getStatus());
+        }
+        // 设备类型
+        if (null != equipmentInfoDTO.getEquipmentType()) {
+            lambdaQueryWrapper.eq(EquipmentInfoDO::getEquipmentType, equipmentInfoDTO.getEquipmentType());
+        }
+
+        queryWrapper.lambda().orderByDesc(EquipmentInfoDO::getCreatedTime);
+        System.out.println(queryWrapper.getSqlSegment());
+
+        List<EquipmentInfoDTO> equipmentInfoDTOList = new ArrayList<>();
+        if (null == extLimit) {
+            List<EquipmentInfoDO> equipmentInfoDOList = super.baseMapper.selectList(queryWrapper);
+            if (equipmentInfoDOList.size() > 0) {
+                equipmentInfoDTOList = JSON.parseArray(JSON.toJSONString(equipmentInfoDOList), EquipmentInfoDTO.class);
+            }
+            return equipmentInfoDTOList;
+        }
+
+        Integer count = super.baseMapper.selectCount(queryWrapper);
+        IPage<EquipmentInfoDO> equipmentInfoDOIPage = new Page<>(extLimit.getPageindex(), extLimit.getPagesize(), count.longValue());
+        IPage<EquipmentInfoDO> equipmentInfoDOList = super.baseMapper.selectPage(equipmentInfoDOIPage, queryWrapper);
+        if (equipmentInfoDOList.getRecords().size() > 0) {
+            equipmentInfoDTOList = JSON.parseArray(JSON.toJSONString(equipmentInfoDOList.getRecords()), EquipmentInfoDTO.class);
+        }
+        extLimit.setCount(new Long(equipmentInfoDOList.getTotal()).intValue());
+        return equipmentInfoDTOList;
     }
 }
