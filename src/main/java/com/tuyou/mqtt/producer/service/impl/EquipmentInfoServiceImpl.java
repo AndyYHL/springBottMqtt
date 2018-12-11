@@ -12,6 +12,7 @@ import com.tuyou.mqtt.producer.pojo.dto.EquipmentDataDTO;
 import com.tuyou.mqtt.producer.repository.EquipmentInfoMapper;
 import com.tuyou.mqtt.producer.service.IEquipmentInfoService;
 import com.tuyou.mqtt.producer.util.json.ExtLimit;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.tuyou.mqtt.producer.pojo.dto.EquipmentInfoDTO;
@@ -29,6 +30,7 @@ import java.util.Map;
  * @author yhl
  * 设备操作操作类
  */
+@Slf4j
 @Service
 public class EquipmentInfoServiceImpl extends ServiceImpl<EquipmentInfoMapper, EquipmentInfoDO> implements IEquipmentInfoService {
     /**
@@ -47,8 +49,10 @@ public class EquipmentInfoServiceImpl extends ServiceImpl<EquipmentInfoMapper, E
             EquipmentInfoDO equipmentInfoDO = new EquipmentInfoDO();
             BeanUtils.copyProperties(equipmentInfoDTO, equipmentInfoDO);
             Integer addCount = super.baseMapper.insert(equipmentInfoDO);
+            log.info("设备注册成功{}",addCount);
             return addCount;
         }
+        log.info("设备数据重复。无法进行添加。设备NO:{}",selectCount);
         return 0;
     }
 
