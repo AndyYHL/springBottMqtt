@@ -156,8 +156,9 @@ public class MqttConfiguration {
                 String topic = r.getHeaders().get(ClientApiFinal.mqttReceivedTopic).toString();
                 String message = r.getPayload().toString();
                 String type = topic.substring(topic.lastIndexOf("/") + 1, topic.length());
-                log.info("订阅的主题:{}",type);
-                /*if (TopicEnum.DEVICEREGISTER.getDescription().equalsIgnoreCase(topic)) {
+
+                /*log.info("订阅的主题:{}",type);
+                if (TopicEnum.DEVICEREGISTER.getDescription().equalsIgnoreCase(topic)) {
                     System.out.println("设备注册,主题：deviceregister内容:" + r.getPayload().toString());
                 } else if (TopicEnum.OILTANKDATA.getDescription().equalsIgnoreCase(topic)) {
                     System.out.println("设备采集,主题：oiltankdata内容:" + r.getPayload().toString());
