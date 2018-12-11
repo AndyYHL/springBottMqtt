@@ -3,7 +3,7 @@ package com.tuyou.mqtt.producer.web.controller;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
 import com.tuyou.mqtt.producer.constant.ClientApiFinal;
-import com.tuyou.mqtt.producer.pojo.dto.TemplateInfoDTO;
+import com.tuyou.mqtt.producer.pojo.dto.EquipmentInfoDTO;
 import com.tuyou.mqtt.producer.pojo.vo.ExcelDataVO;
 import com.tuyou.mqtt.producer.pojo.vo.TitlesTtempletVO;
 import com.tuyou.mqtt.producer.util.PoiUtil;
@@ -133,11 +133,11 @@ public class PurchaseOrderController {
         }
     }
     @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String add(TemplateInfoDTO templateInfoDTO){
+    public String add(EquipmentInfoDTO equipmentInfoDTO){
         //校验参数
-        Set<ConstraintViolation<TemplateInfoDTO>> violationSet = validator.validate(templateInfoDTO);
+        Set<ConstraintViolation<EquipmentInfoDTO>> violationSet = validator.validate(equipmentInfoDTO);
         if(violationSet.size() > 0){
-            Optional<ConstraintViolation<TemplateInfoDTO>> couponDTOConstraintViolation = violationSet.stream().findFirst();
+            Optional<ConstraintViolation<EquipmentInfoDTO>> couponDTOConstraintViolation = violationSet.stream().findFirst();
             return HttpStatus.SC_FAILED_DEPENDENCY+""+couponDTOConstraintViolation.get().getMessage();
         }
         return null;
