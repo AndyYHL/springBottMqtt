@@ -8,6 +8,7 @@ import java.util.Date;
 
 /**
  * 设备数据
+ * @author yhl
  */
 @Data
 @ToString
@@ -28,7 +29,7 @@ public class EquipmentDataVO {
    /**
      * 设备编号
      */
-    private String equipmentTypeNo;
+    private String equipmentNo;
    /**
      * 使用站点
      */

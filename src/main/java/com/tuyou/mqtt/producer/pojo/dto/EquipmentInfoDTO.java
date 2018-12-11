@@ -24,7 +24,7 @@ public class EquipmentInfoDTO {
    /**
      * 设备编号
      */
-    private String equipmentTypeNo;
+    private String equipmentNo;
    /**
      * 地址
      */

@@ -33,7 +33,7 @@ public class EquipmentDataDO {
     /**
      * 设备编号
      */
-    private String equipmentTypeNo;
+    private String equipmentNo;
     /**
      * 使用站点
      */

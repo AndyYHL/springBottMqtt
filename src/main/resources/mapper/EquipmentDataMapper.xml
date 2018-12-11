@@ -10,7 +10,7 @@
 		<!-- 设备名称 -->
 		<result column="equipment_name" property="equipmentName" jdbcType="VARCHAR"/>
 		<!-- 设备编号 -->
-		<result column="equipment_type_no" property="equipmentTypeNo" jdbcType="VARCHAR"/>
+		<result column="equipment_no" property="equipmentNo" jdbcType="VARCHAR"/>
 		<!-- 使用站点 -->
 		<result column="station_id" property="stationId" jdbcType="INTEGER"/>
 		<!-- 使用站点名称 -->
