@@ -32,6 +32,17 @@ public class EquipmentInfoServiceImpl extends ServiceImpl<EquipmentInfoMapper, E
      */
     @Override
     public Integer saveEquipmentInfo(EquipmentInfoDTO equipmentInfoDTO) {
+        // 判断是否已经存在此设备
+        QueryWrapper<EquipmentInfoDO> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().eq(EquipmentInfoDO::getEquipmentNo, equipmentInfoDTO.getEquipmentNo());
+        Integer selectCount = super.baseMapper.selectCount(queryWrapper);
+        if (selectCount == 0) {
+            // 不存在，进行保存
+            EquipmentInfoDO equipmentInfoDO = new EquipmentInfoDO();
+            BeanUtils.copyProperties(equipmentInfoDTO, equipmentInfoDO);
+            Integer addCount = super.baseMapper.insert(equipmentInfoDO);
+            return addCount;
+        }
         return 0;
     }
 
@@ -72,7 +83,15 @@ public class EquipmentInfoServiceImpl extends ServiceImpl<EquipmentInfoMapper, E
      * @Description 查询设备信息详情
      */
     @Override
-    public EquipmentInfoVO findEquipmentInfo(EquipmentInfoDTO equipmentInfoDTO) {
+    public EquipmentInfoDTO findEquipmentInfo(EquipmentInfoDTO equipmentInfoDTO) {
+        // 判断是否已经存在此设备
+        QueryWrapper<EquipmentInfoDO> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().eq(EquipmentInfoDO::getEquipmentNo, equipmentInfoDTO.getEquipmentNo());
+        EquipmentInfoDO equipmentInfoDO = super.baseMapper.selectOne(queryWrapper);
+        if (null == equipmentInfoDO){
+            BeanUtils.copyProperties(equipmentInfoDO,equipmentInfoDTO);
+            return equipmentInfoDTO;
+        }
         return null;
     }
 
@@ -82,7 +101,7 @@ public class EquipmentInfoServiceImpl extends ServiceImpl<EquipmentInfoMapper, E
      * @Description 查询列表设备信息列表 分页可有可无
      */
     @Override
-    public List<EquipmentInfoVO> findEquipmentInfoList(EquipmentInfoDTO equipmentInfoDTO) {
+    public List<EquipmentInfoDTO> findEquipmentInfoList(EquipmentInfoDTO equipmentInfoDTO) {
         return null;
     }
 
@@ -92,7 +111,7 @@ public class EquipmentInfoServiceImpl extends ServiceImpl<EquipmentInfoMapper, E
      * @Description 查询列表设备信息(带分页)
      */
     @Override
-    public List<EquipmentInfoVO> findEquipmentInfoLimit(EquipmentInfoDTO equipmentInfoDTO, ExtLimit extLimit) {
+    public List<EquipmentInfoDTO> findEquipmentInfoLimit(EquipmentInfoDTO equipmentInfoDTO, ExtLimit extLimit) {
         return null;
     }
 }

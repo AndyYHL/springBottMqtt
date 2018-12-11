@@ -47,19 +47,19 @@ public interface IEquipmentDataService{
      * @param equipmentDataDTO 请求equipmentDataDTO数据
      * @return 响应EquipmentDataVO数据
      */
-    EquipmentDataVO findEquipmentData(EquipmentDataDTO equipmentDataDTO);
+    EquipmentDataDTO findEquipmentData(EquipmentDataDTO equipmentDataDTO);
 
     /**
      * @Description 查询列表设备数据列表 
      * @param equipmentDataDTO 请求equipmentDataDTO数据
      * @return 响应List<equipmentDataVO>数据
      */
-    List<EquipmentDataVO> findEquipmentDataList(EquipmentDataDTO equipmentDataDTO);
+    List<EquipmentDataDTO> findEquipmentDataList(EquipmentDataDTO equipmentDataDTO);
 
     /**
      * @Description 查询列表设备数据(带分页)
      * @param equipmentDataDTO 请求equipmentDataDTO数据
      * @return 响应List<equipmentDataVO>数据
      */
-    List<EquipmentDataVO> findEquipmentDataLimit(EquipmentDataDTO equipmentDataDTO, ExtLimit extLimit);
+    List<EquipmentDataDTO> findEquipmentDataLimit(EquipmentDataDTO equipmentDataDTO, ExtLimit extLimit);
 }

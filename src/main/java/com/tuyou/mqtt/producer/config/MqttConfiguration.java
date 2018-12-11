@@ -2,10 +2,12 @@ package com.tuyou.mqtt.producer.config;
 
 import com.tuyou.mqtt.producer.constant.ClientApiFinal;
 import com.tuyou.mqtt.producer.enumeration.TopicEnum;
+import com.tuyou.mqtt.producer.service.IMessageHandleService;
 import com.tuyou.mqtt.producer.service.impl.PushCallback;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,6 +37,10 @@ import org.springframework.messaging.MessagingException;
 @ConfigurationProperties(prefix = "mqtt")
 @Data
 public class MqttConfiguration {
+
+    @Autowired
+    IMessageHandleService messageHandleService;
+
     private String host;
     private String username;
     private String password;
@@ -148,13 +154,16 @@ public class MqttConfiguration {
                 String string = r.getPayload().toString();
                 System.out.println(string);
                 String topic = r.getHeaders().get(ClientApiFinal.mqttReceivedTopic).toString();
+                String message = r.getPayload().toString();
                 String type = topic.substring(topic.lastIndexOf("/") + 1, topic.length());
                 log.info("订阅的主题:{}",type);
-                if (TopicEnum.DEVICEREGISTER.getDescription().equalsIgnoreCase(topic)) {
+                /*if (TopicEnum.DEVICEREGISTER.getDescription().equalsIgnoreCase(topic)) {
                     System.out.println("设备注册,主题：deviceregister内容:" + r.getPayload().toString());
                 } else if (TopicEnum.OILTANKDATA.getDescription().equalsIgnoreCase(topic)) {
                     System.out.println("设备采集,主题：oiltankdata内容:" + r.getPayload().toString());
-                }
+                }*/
+                // 消息处理
+                messageHandleService.MessageHandle(topic,message);
             } catch (MessagingException ex) {
                 // 消息订阅异常
                 log.info("消息订阅异常:{}",ex.toString());

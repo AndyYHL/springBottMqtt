@@ -12,7 +12,7 @@ public enum TopicEnum {
     /**
      * 状态
      */
-    private int code;
+    private Integer code;
     /**
      * 说明
      */
