@@ -36,6 +36,12 @@ public class MQTTServerController {
         return iEmqService.publish(TOPIC, msg);
     }
 
+    @GetMapping("send/cs")
+    public String sendMage(){
+        String string = "{\"equipmentNo\":\"123456789\",\"equipmentName\":\"XX油站采集器\",\"modelNumber\":\"型号\",\"status\":1,\"equipmentType\":1,\"lng\":\"104.0658152103\",\"lat\":\"30.6574616159\"}";
+        mqttGateway.sendToMqtt(string,"wiz_publish");
+        return "OK";
+    }
     /**
      * 快速推送消息
      * @param sendData
