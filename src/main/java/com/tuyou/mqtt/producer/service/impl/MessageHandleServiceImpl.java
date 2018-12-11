@@ -33,18 +33,22 @@ public class MessageHandleServiceImpl implements IMessageHandleService {
     @Override
     public void MessageHandle(String topic, String message) {
         if (StringUtils.isNotBlank(message)) {
-            if (TopicEnum.DEVICEREGISTER.getDescription().equalsIgnoreCase(topic)){
+            try{
+                if (TopicEnum.DEVICEREGISTER.getDescription().equalsIgnoreCase(topic)){
 
-                log.info("设备注册，主题:{},内容:{}",topic,message);
-                EquipmentInfoDTO equipmentInfoDTO = JSON.parseObject(message,EquipmentInfoDTO.class);
-                equipmentInfoService.saveEquipmentInfo(equipmentInfoDTO);
+                    log.info("设备注册，主题:{},内容:{}",topic,message);
+                    EquipmentInfoDTO equipmentInfoDTO = JSON.parseObject(message,EquipmentInfoDTO.class);
+                    equipmentInfoService.saveEquipmentInfo(equipmentInfoDTO);
 
-            }else if (TopicEnum.OILTANKDATA.getDescription().equalsIgnoreCase(topic)){
+                }else if (TopicEnum.OILTANKDATA.getDescription().equalsIgnoreCase(topic)){
 
-                log.info("设备采集数据，主题:{},内容:{}",topic,message);
-                EquipmentDataDTO equipmentDataDTO = JSON.parseObject(message,EquipmentDataDTO.class);
-                equipmentDataService.saveEquipmentData(equipmentDataDTO);
+                    log.info("设备采集数据，主题:{},内容:{}",topic,message);
+                    EquipmentDataDTO equipmentDataDTO = JSON.parseObject(message,EquipmentDataDTO.class);
+                    equipmentDataService.saveEquipmentData(equipmentDataDTO);
 
+                }
+            }catch (Exception ex){
+                log.info("消息处理异常：主题:{},内容:{},异常内容:{}",topic,message,ex.getMessage());
             }
         }
         log.info("数据为空，不进行处理，主题:{},内容:{}",topic,message);
