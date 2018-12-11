@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tuyou.mqtt.producer.repository.EquipmentInfoMapper">
+	<resultMap id="queryResultMap" type="com.tuyou.mqtt.producer.pojo.vo.EquipmentInfoVO">
+		<!-- 主键 -->
+		<result column="equipment_id" property="equipmentId" jdbcType="INTEGER"/>
+		<!-- 设备名称 -->
+		<result column="equipment_name" property="equipmentName" jdbcType="VARCHAR"/>
+		<!-- 设备编号 -->
+		<result column="equipment_type_no" property="equipmentTypeNo" jdbcType="VARCHAR"/>
+		<!-- 地址 -->
+		<result column="address" property="address" jdbcType="VARCHAR"/>
+		<!-- 类别 -->
+		<result column="category" property="category" jdbcType="VARCHAR"/>
+		<!-- 型号 -->
+		<result column="model_number" property="modelNumber" jdbcType="VARCHAR"/>
+		<!-- 制造单位 -->
+		<result column="unit" property="unit" jdbcType="VARCHAR"/>
+		<!-- 投运日期 -->
+		<result column="commissioning_date" property="commissioningDate" jdbcType="TIMESTAMP"/>
+		<!-- 购入日期 -->
+		<result column="purchase_date" property="purchaseDate" jdbcType="TIMESTAMP"/>
+		<!-- 产品图片 -->
+		<result column="picture" property="picture" jdbcType="VARCHAR"/>
+		<!-- 技术数据 -->
+		<result column="technical_data" property="technicalData" jdbcType="VARCHAR"/>
+		<!-- 备注 -->
+		<result column="remark" property="remark" jdbcType="VARCHAR"/>
+		<!-- 设备状态 -->
+		<result column="status" property="status" jdbcType="INTEGER"/>
+		<!-- 设备类型 -->
+		<result column="equipment_type" property="equipmentType" jdbcType="INTEGER"/>
+		<!-- 经度 -->
+		<result column="lng" property="lng" jdbcType="VARCHAR"/>
+		<!-- 纬度 -->
+		<result column="lat" property="lat" jdbcType="VARCHAR"/>
+		<!-- 使用站点 -->
+		<result column="station_id" property="stationId" jdbcType="INTEGER"/>
+		<!-- 使用站点名称 -->
+		<result column="station_name" property="stationName" jdbcType="VARCHAR"/>
+		<!-- 总站id -->
+		<result column="enterprise_id" property="enterpriseId" jdbcType="INTEGER"/>
+		<!-- 总站名称 -->
+		<result column="enterprise_name" property="enterpriseName" jdbcType="VARCHAR"/>
+		<!-- 创建者 -->
+		<result column="created_id" property="createdId" jdbcType="INTEGER"/>
+		<!-- 创建者名称 -->
+		<result column="created_name" property="createdName" jdbcType="VARCHAR"/>
+		<!-- 创建时间 -->
+		<result column="created_time" property="createdTime" jdbcType="TIMESTAMP"/>
+	</resultMap>
+</mapper>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tuyou.mqtt.producer.repository.EquipmentDataMapper">
+	<resultMap id="queryResultMap" type="com.tuyou.mqtt.producer.pojo.vo.EquipmentDataVO">
+		<!-- 主键 -->
+		<result column="equipment_data_id" property="equipmentDataId" jdbcType="INTEGER"/>
+		<!-- 设备ID -->
+		<result column="equipment_id" property="equipmentId" jdbcType="INTEGER"/>
+		<!-- 设备名称 -->
+		<result column="equipment_name" property="equipmentName" jdbcType="VARCHAR"/>
+		<!-- 设备编号 -->
+		<result column="equipment_type_no" property="equipmentTypeNo" jdbcType="VARCHAR"/>
+		<!-- 使用站点 -->
+		<result column="station_id" property="stationId" jdbcType="INTEGER"/>
+		<!-- 使用站点名称 -->
+		<result column="station_name" property="stationName" jdbcType="VARCHAR"/>
+		<!-- 总站id -->
+		<result column="enterprise_id" property="enterpriseId" jdbcType="INTEGER"/>
+		<!-- 总站名称 -->
+		<result column="enterprise_name" property="enterpriseName" jdbcType="VARCHAR"/>
+		<!-- 油罐号 -->
+		<result column="tank_no" property="tankNo" jdbcType="VARCHAR"/>
+		<!-- 商品id -->
+		<result column="product_type_id" property="productTypeId" jdbcType="INTEGER"/>
+		<!-- 类型名称 -->
+		<result column="type_name" property="typeName" jdbcType="VARCHAR"/>
+		<!-- 油品 -->
+		<result column="oils" property="oils" jdbcType="VARCHAR"/>
+		<!-- 油高 -->
+		<result column="oil_height" property="oilHeight" jdbcType="VARCHAR"/>
+		<!-- 水高 -->
+		<result column="water_height" property="waterHeight" jdbcType="VARCHAR"/>
+		<!-- 油体积 -->
+		<result column="oil_volume" property="oilVolume" jdbcType="VARCHAR"/>
+		<!-- 水体积 -->
+		<result column="water_volume" property="waterVolume" jdbcType="VARCHAR"/>
+		<!-- 温度 -->
+		<result column="temperature" property="temperature" jdbcType="VARCHAR"/>
+		<!-- 库存量 -->
+		<result column="inventory" property="inventory" jdbcType="VARCHAR"/>
+		<!-- 更新时间 -->
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+		<!-- 创建时间 -->
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<!-- 备注 -->
+		<result column="remark" property="remark" jdbcType="VARCHAR"/>
+		<!-- 备用1 -->
+		<result column="reserve_1" property="reserve1" jdbcType="INTEGER"/>
+		<!-- 备用2 -->
+		<result column="reserve_2" property="reserve2" jdbcType="INTEGER"/>
+		<!-- 备用3 -->
+		<result column="reserve_3" property="reserve3" jdbcType="INTEGER"/>
+		<!-- 备用4 -->
+		<result column="reserve_4" property="reserve4" jdbcType="INTEGER"/>
+		<!-- 备用5 -->
+		<result column="reserve_5" property="reserve5" jdbcType="INTEGER"/>
+		<!-- 备用6 -->
+		<result column="reserve_6" property="reserve6" jdbcType="VARCHAR"/>
+		<!-- 备用7 -->
+		<result column="reserve_7" property="reserve7" jdbcType="VARCHAR"/>
+		<!-- 备用8 -->
+		<result column="reserve_8" property="reserve8" jdbcType="VARCHAR"/>
+		<!-- 备用9 -->
+		<result column="reserve_9" property="reserve9" jdbcType="VARCHAR"/>
+		<!-- 备用10 -->
+		<result column="reserve_10" property="reserve10" jdbcType="VARCHAR"/>
+	</resultMap>
+</mapper>

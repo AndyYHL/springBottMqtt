@@ -3,6 +3,7 @@ package com.tuyou.mqtt.producer.config;
 import com.tuyou.mqtt.producer.constant.ClientApiFinal;
 import com.tuyou.mqtt.producer.service.impl.PushCallback;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -28,6 +29,7 @@ import org.springframework.messaging.MessagingException;
  * @PropertySource("classpath:application.yml") //指定要读取的配置文件
  * ConfigurationProperties 配置文件中的前缀
  */
+@Slf4j
 @Configuration
 @ConfigurationProperties(prefix = "mqtt")
 @Data
@@ -146,6 +148,7 @@ public class MqttConfiguration {
                 System.out.println(string);
                 String topic = r.getHeaders().get(ClientApiFinal.mqttReceivedTopic).toString();
                 String type = topic.substring(topic.lastIndexOf("/") + 1, topic.length());
+                log.info("订阅的主题:{}",type);
                 if ("yes".equalsIgnoreCase(topic)) {
                     System.out.println("yes,fuckXX," + r.getPayload().toString());
                 } else if ("good".equalsIgnoreCase(topic)) {
@@ -156,7 +159,8 @@ public class MqttConfiguration {
                     System.out.println("wiz_publish,周静测试发送：" + r.getPayload().toString());
                 }
             } catch (MessagingException ex) {
-
+                // 消息订阅异常
+                log.info("消息订阅异常:{}",ex.toString());
             }
         };
     }
