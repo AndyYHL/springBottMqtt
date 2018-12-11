@@ -1,6 +1,7 @@
 package com.tuyou.mqtt.producer.config;
 
 import com.tuyou.mqtt.producer.constant.ClientApiFinal;
+import com.tuyou.mqtt.producer.enumeration.TopicEnum;
 import com.tuyou.mqtt.producer.service.impl.PushCallback;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -149,14 +150,10 @@ public class MqttConfiguration {
                 String topic = r.getHeaders().get(ClientApiFinal.mqttReceivedTopic).toString();
                 String type = topic.substring(topic.lastIndexOf("/") + 1, topic.length());
                 log.info("订阅的主题:{}",type);
-                if ("yes".equalsIgnoreCase(topic)) {
-                    System.out.println("yes,fuckXX," + r.getPayload().toString());
-                } else if ("good".equalsIgnoreCase(topic)) {
-                    System.out.println("good,fuckXX," + r.getPayload().toString());
-                } else if ("test".equalsIgnoreCase(topic)) {
-                    System.out.println("test,fuckXX," + r.getPayload().toString());
-                } else if ("wiz_publish".equalsIgnoreCase(topic)){
-                    System.out.println("wiz_publish,周静测试发送：" + r.getPayload().toString());
+                if (TopicEnum.DEVICEREGISTER.getDescription().equalsIgnoreCase(topic)) {
+                    System.out.println("设备注册,主题：deviceregister内容:" + r.getPayload().toString());
+                } else if (TopicEnum.OILTANKDATA.getDescription().equalsIgnoreCase(topic)) {
+                    System.out.println("设备采集,主题：oiltankdata内容:" + r.getPayload().toString());
                 }
             } catch (MessagingException ex) {
                 // 消息订阅异常
