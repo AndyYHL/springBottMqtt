@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tuyou.mqtt.producer.repository.OiltankMapper">
+	<resultMap id="queryResultMap" type="com.tuyou.mqtt.producer.pojo.dto.OiltankDTO">
+		<result column="oiltank_id" property="oiltankId" jdbcType="INTEGER"/>
+		<!-- 油罐号 -->
+		<result column="oiltank_no" property="oiltankNo" jdbcType="VARCHAR"/>
+		<!-- 油罐名称 -->
+		<result column="oiltank_name" property="oiltankName" jdbcType="VARCHAR"/>
+		<!-- 使用站点 -->
+		<result column="station_id" property="stationId" jdbcType="INTEGER"/>
+		<!-- 使用站点名称 -->
+		<result column="station_name" property="stationName" jdbcType="VARCHAR"/>
+		<!-- 总站id -->
+		<result column="enterprise_id" property="enterpriseId" jdbcType="INTEGER"/>
+		<!-- 总站名称 -->
+		<result column="enterprise_name" property="enterpriseName" jdbcType="VARCHAR"/>
+		<!-- 创建者 -->
+		<result column="created_id" property="createdId" jdbcType="INTEGER"/>
+		<!-- 创建者名称 -->
+		<result column="created_name" property="createdName" jdbcType="VARCHAR"/>
+		<!-- 创建时间 -->
+		<result column="created_time" property="createdTime" jdbcType="TIMESTAMP"/>
+	</resultMap>
+</mapper>

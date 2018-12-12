@@ -51,9 +51,13 @@ public class EquipmentDataDO {
      */
     private String enterpriseName;
     /**
+     * 油罐号ID
+     */
+    private Integer oiltankId;
+    /**
      * 油罐号
      */
-    private String tankNo;
+    private String oiltankNo;
     /**
      * 商品id
      */

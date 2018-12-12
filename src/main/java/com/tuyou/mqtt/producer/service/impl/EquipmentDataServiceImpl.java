@@ -8,10 +8,13 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tuyou.mqtt.producer.pojo.domain.EquipmentDataDO;
 import com.tuyou.mqtt.producer.pojo.dto.EquipmentInfoDTO;
+import com.tuyou.mqtt.producer.pojo.dto.OiltankDTO;
 import com.tuyou.mqtt.producer.pojo.vo.EquipmentInfoVO;
+import com.tuyou.mqtt.producer.pojo.vo.OiltankVO;
 import com.tuyou.mqtt.producer.repository.EquipmentDataMapper;
 import com.tuyou.mqtt.producer.service.IEquipmentDataService;
 import com.tuyou.mqtt.producer.service.IEquipmentInfoService;
+import com.tuyou.mqtt.producer.service.IOiltankService;
 import com.tuyou.mqtt.producer.util.json.ExtLimit;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +43,8 @@ public class EquipmentDataServiceImpl extends ServiceImpl<EquipmentDataMapper, E
      */
     @Autowired
     IEquipmentInfoService equipmentInfoService;
+    @Autowired
+    IOiltankService oiltankService;
 
     /**
      * @param equipmentDataDTO 请求equipmentDataDTO数据
@@ -72,6 +77,20 @@ public class EquipmentDataServiceImpl extends ServiceImpl<EquipmentDataMapper, E
         equipmentDataDO.setStationName(equipmentInfoVO.getStationName());
         equipmentDataDO.setUpdateTime(new Date());
         equipmentDataDO.setCreateTime(new Date());
+
+        // 跟油罐表建立关系
+        OiltankDTO oiltankDTO = new OiltankDTO();
+        oiltankDTO.setOiltankNo(equipmentDataDO.getOiltankNo());
+        oiltankDTO.setEnterpriseId(equipmentDataDO.getEnterpriseId());
+        oiltankDTO.setEnterpriseName(equipmentDataDO.getEnterpriseName());
+        oiltankDTO.setStationId(equipmentDataDO.getStationId());
+        oiltankDTO.setStationName(equipmentDataDO.getStationName());
+        oiltankDTO.setOiltankName(equipmentDataDO.getEquipmentName());
+
+        // 获取油罐信息
+        OiltankVO oiltankVO = oiltankService.findOiltank(oiltankDTO);
+        equipmentDataDO.setOiltankId(oiltankVO.getOiltankId());
+
         return super.baseMapper.insert(equipmentDataDO);
     }
 

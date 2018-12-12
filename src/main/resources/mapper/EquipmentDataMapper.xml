@@ -19,8 +19,10 @@
 		<result column="enterprise_id" property="enterpriseId" jdbcType="INTEGER"/>
 		<!-- 总站名称 -->
 		<result column="enterprise_name" property="enterpriseName" jdbcType="VARCHAR"/>
+		<!-- 油罐号ID -->
+		<result column="oiltank_id" property="oiltankId" jdbcType="INTEGER"/>
 		<!-- 油罐号 -->
-		<result column="tank_no" property="tankNo" jdbcType="VARCHAR"/>
+		<result column="oiltank_no" property="oiltankNo" jdbcType="VARCHAR"/>
 		<!-- 商品id -->
 		<result column="product_type_id" property="productTypeId" jdbcType="INTEGER"/>
 		<!-- 类型名称 -->

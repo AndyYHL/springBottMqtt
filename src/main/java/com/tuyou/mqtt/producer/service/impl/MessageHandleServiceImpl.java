@@ -46,8 +46,8 @@ public class MessageHandleServiceImpl implements IMessageHandleService {
                 } else if (TopicEnum.OILTANKDATA.getDescription().equalsIgnoreCase(topic)) {
 
                     log.info("设备采集数据，主题:{},内容:{}", topic, message);
-                    List<EquipmentDataDTO> equipmentDataDTOList = JSON.parseArray(JSON.toJSONString(message), EquipmentDataDTO.class);
-                    equipmentDataDTOList.stream().forEach(r -> equipmentDataService.saveEquipmentData(r));
+                    EquipmentDataDTO equipmentDataDTO = JSON.parseObject(message,EquipmentDataDTO.class);
+                    equipmentDataService.saveEquipmentData(equipmentDataDTO);
                 }
             } catch (Exception ex) {
                 log.info("消息处理异常：主题:{},内容:{},异常内容:{}", topic, message, ex.getMessage());
