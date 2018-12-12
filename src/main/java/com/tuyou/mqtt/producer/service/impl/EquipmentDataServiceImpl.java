@@ -90,6 +90,7 @@ public class EquipmentDataServiceImpl extends ServiceImpl<EquipmentDataMapper, E
         // 获取油罐信息
         OiltankVO oiltankVO = oiltankService.findOiltank(oiltankDTO);
         equipmentDataDO.setOiltankId(oiltankVO.getOiltankId());
+        equipmentDataDO.setOiltankNo(oiltankVO.getOiltankNo());
 
         return super.baseMapper.insert(equipmentDataDO);
     }
