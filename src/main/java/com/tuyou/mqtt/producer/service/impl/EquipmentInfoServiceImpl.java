@@ -102,22 +102,20 @@ public class EquipmentInfoServiceImpl extends ServiceImpl<EquipmentInfoMapper, E
     @Override
     public EquipmentInfoVO findEquipmentInfo(EquipmentInfoDTO equipmentInfoDTO) {
         EquipmentInfoVO equipmentInfoVO = new EquipmentInfoVO();
-        EquipmentInfoDO equipmentInfoDO;
+        EquipmentInfoDO equipmentInfoDO = null;
 
         if (StringUtils.isNotBlank(equipmentInfoDTO.getEquipmentNo())) {
             // 判断是否已经存在此设备
             QueryWrapper<EquipmentInfoDO> queryWrapper = new QueryWrapper<>();
             queryWrapper.lambda().eq(EquipmentInfoDO::getEquipmentNo, equipmentInfoDTO.getEquipmentNo());
             equipmentInfoDO = super.baseMapper.selectOne(queryWrapper);
-        } else {
-            equipmentInfoDO = super.baseMapper.selectById(equipmentInfoDTO.getEquipmentId());
         }
 
         if (null == equipmentInfoDO) {
-            BeanUtils.copyProperties(equipmentInfoDO, equipmentInfoVO);
-            return equipmentInfoVO;
+            return null;
         }
-        return null;
+        BeanUtils.copyProperties(equipmentInfoDO, equipmentInfoVO);
+        return equipmentInfoVO;
     }
 
     /**
