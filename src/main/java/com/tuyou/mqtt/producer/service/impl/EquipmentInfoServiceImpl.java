@@ -48,6 +48,7 @@ public class EquipmentInfoServiceImpl extends ServiceImpl<EquipmentInfoMapper, E
             // 不存在，进行保存
             EquipmentInfoDO equipmentInfoDO = new EquipmentInfoDO();
             BeanUtils.copyProperties(equipmentInfoDTO, equipmentInfoDO);
+            equipmentInfoDO.setCreatedTime(new Date());
             Integer addCount = super.baseMapper.insert(equipmentInfoDO);
             log.info("设备注册成功{}",addCount);
             return addCount;
