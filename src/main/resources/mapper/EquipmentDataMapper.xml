@@ -48,24 +48,24 @@
 		<!-- 备注 -->
 		<result column="remark" property="remark" jdbcType="VARCHAR"/>
 		<!-- 备用1 -->
-		<result column="reserve_1" property="reserve1" jdbcType="INTEGER"/>
+		<result column="reserve1" property="reserve1" jdbcType="INTEGER"/>
 		<!-- 备用2 -->
-		<result column="reserve_2" property="reserve2" jdbcType="INTEGER"/>
+		<result column="reserve2" property="reserve2" jdbcType="INTEGER"/>
 		<!-- 备用3 -->
-		<result column="reserve_3" property="reserve3" jdbcType="INTEGER"/>
+		<result column="reserve3" property="reserve3" jdbcType="INTEGER"/>
 		<!-- 备用4 -->
-		<result column="reserve_4" property="reserve4" jdbcType="INTEGER"/>
+		<result column="reserve4" property="reserve4" jdbcType="INTEGER"/>
 		<!-- 备用5 -->
-		<result column="reserve_5" property="reserve5" jdbcType="INTEGER"/>
+		<result column="reserve5" property="reserve5" jdbcType="INTEGER"/>
 		<!-- 备用6 -->
-		<result column="reserve_6" property="reserve6" jdbcType="VARCHAR"/>
+		<result column="reserve6" property="reserve6" jdbcType="VARCHAR"/>
 		<!-- 备用7 -->
-		<result column="reserve_7" property="reserve7" jdbcType="VARCHAR"/>
+		<result column="reserve7" property="reserve7" jdbcType="VARCHAR"/>
 		<!-- 备用8 -->
-		<result column="reserve_8" property="reserve8" jdbcType="VARCHAR"/>
+		<result column="reserve8" property="reserve8" jdbcType="VARCHAR"/>
 		<!-- 备用9 -->
-		<result column="reserve_9" property="reserve9" jdbcType="VARCHAR"/>
+		<result column="reserve9" property="reserve9" jdbcType="VARCHAR"/>
 		<!-- 备用10 -->
-		<result column="reserve_10" property="reserve10" jdbcType="VARCHAR"/>
+		<result column="reserve10" property="reserve10" jdbcType="VARCHAR"/>
 	</resultMap>
 </mapper>

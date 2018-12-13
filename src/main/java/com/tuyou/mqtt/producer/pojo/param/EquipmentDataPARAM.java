@@ -29,33 +29,32 @@ public class EquipmentDataPARAM {
     /**
      * 总站名称
      */
-    @ApiModelProperty(value="总站名称",name="enterpriseName",required=true,dataType = "String")
+    @ApiModelProperty(value="总站名称",name="enterpriseName",dataType = "String")
     private String enterpriseName;
     /**
      * 使用站点
      */
-    @Min(value = 1,message = "分站点ID最小为0")
-    @ApiModelProperty(value="分站点ID",name="stationId",required=true,dataType = "String")
+    @ApiModelProperty(value="分站点ID",name="stationId",dataType = "String")
     private Integer stationId;
     /**
      * 使用站点名称
      */
-    @ApiModelProperty(value="站点名称",name="stationName",required=true,dataType = "String")
+    @ApiModelProperty(value="站点名称",name="stationName",dataType = "String")
     private String stationName;
     /**
      * 商品id
      */
-    @ApiModelProperty(value="商品ID",name="productTypeId",required=true,dataType = "Int")
+    @ApiModelProperty(value="商品ID",name="productTypeId",dataType = "Int")
     private Integer productTypeId;
     /**
      * 类型名称
      */
-    @ApiModelProperty(value="类型名称",name="typeName",required=true,dataType = "String")
+    @ApiModelProperty(value="类型名称",name="typeName",dataType = "String")
     private String typeName;
     /**
      * 油品
      */
-    @ApiModelProperty(value="油品名称",name="oils",required=true,dataType = "String")
+    @ApiModelProperty(value="油品名称",name="oils",dataType = "String")
     private String oils;
     /**
      * 分页参数
