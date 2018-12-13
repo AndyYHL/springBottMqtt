@@ -32,7 +32,7 @@ public class Swagger2Config {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("ORDER APIs")
+                .title("MQTT消息推送与硬件监控 APIs")
                 .description("mqtt-producer 文档API")
                 .version("0.0.1")
                 .build();
