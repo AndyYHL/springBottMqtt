@@ -33,7 +33,7 @@ import java.util.Set;
  */
 @RestController
 @RequestMapping(value = ClientApiFinal.version + "equipmentData/")
-@Api(value = "EquipmentDataController|用来管理和获取设备采集数据处理结果展示到前端页面")
+@Api(value = "EquipmentDataController|用来管理和获取设备采集数据处理结果展示到前端页面", tags = {"用来管理和获取设备采集数据处理结果展示到前端页面"})
 public class EquipmentDataController {
     @Autowired
     IEquipmentDataService equipmentDataService;
