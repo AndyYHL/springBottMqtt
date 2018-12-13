@@ -9,7 +9,7 @@
 		<!-- 油罐名称 -->
 		<result column="oiltank_name" property="oiltankName" jdbcType="VARCHAR"/>
 		<!-- 使用站点 -->
-		<result column="station_id" property="stationId" jdbcType="INTEGER"/>
+		<result column="station_id" property="stationId" jdbcType="VARCHAR"/>
 		<!-- 使用站点名称 -->
 		<result column="station_name" property="stationName" jdbcType="VARCHAR"/>
 		<!-- 总站id -->

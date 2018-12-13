@@ -35,7 +35,7 @@ public class EquipmentDataPARAM {
      * 使用站点
      */
     @ApiModelProperty(value="分站点ID",name="stationId",dataType = "String")
-    private Integer stationId;
+    private String stationId;
     /**
      * 使用站点名称
      */

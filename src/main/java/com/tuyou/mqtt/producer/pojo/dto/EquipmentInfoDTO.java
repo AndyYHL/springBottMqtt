@@ -81,7 +81,7 @@ public class EquipmentInfoDTO {
    /**
      * 使用站点
      */
-    private Integer stationId;
+    private String stationId;
    /**
      * 使用站点名称
      */

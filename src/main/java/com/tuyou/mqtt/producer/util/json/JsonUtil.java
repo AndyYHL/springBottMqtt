@@ -3,6 +3,9 @@ package com.tuyou.mqtt.producer.util.json;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import java.io.Serializable;
+
 /**
  * @author yhl
  * 输出结构化JSON
@@ -10,7 +13,7 @@ import lombok.Data;
  */
 @Data
 @ApiModel(value="返回的结果",description="返回结果体")
-public class JsonUtil<D,O> {
+public class JsonUtil<D,O> implements Serializable {
     /**
      * 请求参数
      */
