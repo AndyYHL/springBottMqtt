@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.Min;
+
 /**
  * @author yhl
  * 公共 返回参数分页
@@ -19,11 +21,13 @@ public class ExtLimit {
     /**
      * 返回数据条数
      */
+    @Min(value = 1,message = "请求条数最小1")
     @ApiModelProperty(value="每页显示的条数",name="pagesize",required=true,dataType = "Int")
     private Integer pagesize;
     /**
      * 当前请求的页数
      */
+    @Min(value = 1,message = "请求页面最小为1")
     @ApiModelProperty(value="请求的页数",name="pageindex",required=true,dataType = "Int")
     private Integer pageindex;
     /**
