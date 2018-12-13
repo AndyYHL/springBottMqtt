@@ -23,7 +23,7 @@ public class EquipmentDataPARAM {
      * 总站id
      */
     @NotNull(message = "总站id不能为空")
-    @Min(value = 1,message = "总站id最小为0")
+    @Min(value = 1,message = "总站id最小为1")
     @ApiModelProperty(value="总站id",name="enterpriseId",required=true,dataType = "Int")
     private Integer enterpriseId;
     /**
