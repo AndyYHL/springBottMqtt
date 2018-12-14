@@ -78,6 +78,21 @@ public class EquipmentDataServiceImpl extends ServiceImpl<EquipmentDataMapper, E
         equipmentDataDO.setUpdateTime(new Date());
         equipmentDataDO.setCreateTime(new Date());
 
+        // 计算 水高、油高、水体积、油体积、温度、库存量
+        double waterHeight = Double.valueOf(equipmentDataDO.getWaterHeight())/100;
+        double oilHeight = Double.valueOf(equipmentDataDO.getWaterHeight())/100;
+        double waterVolume = Double.valueOf(equipmentDataDO.getWaterHeight())/100;
+        double oilVolume = Double.valueOf(equipmentDataDO.getWaterHeight())/100;
+        double temperature = Double.valueOf(equipmentDataDO.getWaterHeight())/100;
+        double inventory = Double.valueOf(equipmentDataDO.getWaterHeight())/100;
+
+        equipmentDataDO.setWaterHeight(String.valueOf(waterHeight));
+        equipmentDataDO.setOilHeight(String.valueOf(oilHeight));
+        equipmentDataDO.setWaterVolume(String.valueOf(waterVolume));
+        equipmentDataDO.setOilVolume(String.valueOf(oilVolume));
+        equipmentDataDO.setTemperature(String.valueOf(temperature));
+        equipmentDataDO.setInventory(String.valueOf(inventory));
+
         // 跟油罐表建立关系
         OiltankDTO oiltankDTO = new OiltankDTO();
         oiltankDTO.setOiltankNo(equipmentDataDO.getOiltankNo());
