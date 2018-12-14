@@ -24,6 +24,7 @@ import org.springframework.beans.BeanUtils;
 import org.apache.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -79,19 +80,21 @@ public class EquipmentDataServiceImpl extends ServiceImpl<EquipmentDataMapper, E
         equipmentDataDO.setCreateTime(new Date());
 
         // 计算 水高、油高、水体积、油体积、温度、库存量
-        double waterHeight = Double.valueOf(equipmentDataDO.getWaterHeight())/100;
-        double oilHeight = Double.valueOf(equipmentDataDO.getWaterHeight())/100;
-        double waterVolume = Double.valueOf(equipmentDataDO.getWaterHeight())/100;
-        double oilVolume = Double.valueOf(equipmentDataDO.getWaterHeight())/100;
-        double temperature = Double.valueOf(equipmentDataDO.getWaterHeight())/100;
-        double inventory = Double.valueOf(equipmentDataDO.getWaterHeight())/100;
+        // 全部计算 缩小
+        BigDecimal baseRadix = new BigDecimal(100);
+        BigDecimal waterHeight = new BigDecimal(equipmentDataDO.getWaterHeight()).divide(baseRadix);
+        BigDecimal oilHeight = new BigDecimal(equipmentDataDO.getWaterHeight()).divide(baseRadix);
+        BigDecimal waterVolume = new BigDecimal(equipmentDataDO.getWaterHeight()).divide(baseRadix);
+        BigDecimal oilVolume = new BigDecimal(equipmentDataDO.getWaterHeight()).divide(baseRadix);
+        BigDecimal temperature = new BigDecimal(equipmentDataDO.getWaterHeight()).divide(baseRadix);
+        BigDecimal inventory = new BigDecimal(equipmentDataDO.getWaterHeight()).divide(baseRadix);
 
-        equipmentDataDO.setWaterHeight(String.valueOf(waterHeight));
-        equipmentDataDO.setOilHeight(String.valueOf(oilHeight));
-        equipmentDataDO.setWaterVolume(String.valueOf(waterVolume));
-        equipmentDataDO.setOilVolume(String.valueOf(oilVolume));
-        equipmentDataDO.setTemperature(String.valueOf(temperature));
-        equipmentDataDO.setInventory(String.valueOf(inventory));
+        equipmentDataDO.setWaterHeight(waterHeight.toString());
+        equipmentDataDO.setOilHeight(oilHeight.toString());
+        equipmentDataDO.setWaterVolume(waterVolume.toString());
+        equipmentDataDO.setOilVolume(oilVolume.toString());
+        equipmentDataDO.setTemperature(temperature.toString());
+        equipmentDataDO.setInventory(inventory.toString());
 
         // 跟油罐表建立关系
         OiltankDTO oiltankDTO = new OiltankDTO();
