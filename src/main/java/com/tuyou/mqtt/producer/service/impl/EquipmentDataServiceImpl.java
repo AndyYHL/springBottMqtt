@@ -67,11 +67,11 @@ public class EquipmentDataServiceImpl extends ServiceImpl<EquipmentDataMapper, E
         // 全部计算 缩小
         BigDecimal baseRadix = new BigDecimal(100);
         BigDecimal waterHeight = new BigDecimal(equipmentDataDO.getWaterHeight()).divide(baseRadix);
-        BigDecimal oilHeight = new BigDecimal(equipmentDataDO.getWaterHeight()).divide(baseRadix);
-        BigDecimal waterVolume = new BigDecimal(equipmentDataDO.getWaterHeight()).divide(baseRadix);
-        BigDecimal oilVolume = new BigDecimal(equipmentDataDO.getWaterHeight()).divide(baseRadix);
-        BigDecimal temperature = new BigDecimal(equipmentDataDO.getWaterHeight()).divide(baseRadix);
-        BigDecimal inventory = new BigDecimal(equipmentDataDO.getWaterHeight()).divide(baseRadix);
+        BigDecimal oilHeight = new BigDecimal(equipmentDataDO.getOilHeight()).divide(baseRadix);
+        BigDecimal waterVolume = new BigDecimal(equipmentDataDO.getWaterVolume()).divide(baseRadix);
+        BigDecimal oilVolume = new BigDecimal(equipmentDataDO.getOilVolume()).divide(baseRadix);
+        BigDecimal temperature = new BigDecimal(equipmentDataDO.getTemperature()).divide(baseRadix);
+        BigDecimal inventory = new BigDecimal(equipmentDataDO.getInventory()).divide(baseRadix);
 
         equipmentDataDO.setWaterHeight(waterHeight.toString());
         equipmentDataDO.setOilHeight(oilHeight.toString());
