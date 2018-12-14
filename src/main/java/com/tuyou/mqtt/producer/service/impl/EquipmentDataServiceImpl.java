@@ -63,22 +63,6 @@ public class EquipmentDataServiceImpl extends ServiceImpl<EquipmentDataMapper, E
         EquipmentDataDO equipmentDataDO = new EquipmentDataDO();
         BeanUtils.copyProperties(equipmentDataDTO, equipmentDataDO);
 
-        // 没有获取设备信息，直接进行保存
-        if (null == equipmentInfoVO) {
-            return super.baseMapper.insert(equipmentDataDO);
-        }
-
-        // 已经获取到设备信息，进行设置总站分站保存
-        equipmentDataDO.setEquipmentId(equipmentInfoVO.getEquipmentId());
-        equipmentDataDO.setEquipmentName(equipmentInfoVO.getEquipmentName());
-        equipmentDataDO.setEquipmentNo(equipmentInfoVO.getEquipmentNo());
-        equipmentDataDO.setEnterpriseId(equipmentInfoVO.getEnterpriseId());
-        equipmentDataDO.setEnterpriseName(equipmentInfoVO.getEnterpriseName());
-        equipmentDataDO.setStationId(equipmentInfoVO.getStationId());
-        equipmentDataDO.setStationName(equipmentInfoVO.getStationName());
-        equipmentDataDO.setUpdateTime(new Date());
-        equipmentDataDO.setCreateTime(new Date());
-
         // 计算 水高、油高、水体积、油体积、温度、库存量
         // 全部计算 缩小
         BigDecimal baseRadix = new BigDecimal(100);
@@ -95,6 +79,22 @@ public class EquipmentDataServiceImpl extends ServiceImpl<EquipmentDataMapper, E
         equipmentDataDO.setOilVolume(oilVolume.toString());
         equipmentDataDO.setTemperature(temperature.toString());
         equipmentDataDO.setInventory(inventory.toString());
+
+        // 没有获取设备信息，直接进行保存
+        if (null == equipmentInfoVO) {
+            return super.baseMapper.insert(equipmentDataDO);
+        }
+
+        // 已经获取到设备信息，进行设置总站分站保存
+        equipmentDataDO.setEquipmentId(equipmentInfoVO.getEquipmentId());
+        equipmentDataDO.setEquipmentName(equipmentInfoVO.getEquipmentName());
+        equipmentDataDO.setEquipmentNo(equipmentInfoVO.getEquipmentNo());
+        equipmentDataDO.setEnterpriseId(equipmentInfoVO.getEnterpriseId());
+        equipmentDataDO.setEnterpriseName(equipmentInfoVO.getEnterpriseName());
+        equipmentDataDO.setStationId(equipmentInfoVO.getStationId());
+        equipmentDataDO.setStationName(equipmentInfoVO.getStationName());
+        equipmentDataDO.setUpdateTime(new Date());
+        equipmentDataDO.setCreateTime(new Date());
 
         // 跟油罐表建立关系
         OiltankDTO oiltankDTO = new OiltankDTO();
