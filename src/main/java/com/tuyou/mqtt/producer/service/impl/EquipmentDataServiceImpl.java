@@ -79,6 +79,8 @@ public class EquipmentDataServiceImpl extends ServiceImpl<EquipmentDataMapper, E
         equipmentDataDO.setOilVolume(oilVolume.toString());
         equipmentDataDO.setTemperature(temperature.toString());
         equipmentDataDO.setInventory(inventory.toString());
+        equipmentDataDO.setUpdateTime(new Date());
+        equipmentDataDO.setCreateTime(new Date());
 
         // 没有获取设备信息，直接进行保存
         if (null == equipmentInfoVO) {
@@ -93,8 +95,6 @@ public class EquipmentDataServiceImpl extends ServiceImpl<EquipmentDataMapper, E
         equipmentDataDO.setEnterpriseName(equipmentInfoVO.getEnterpriseName());
         equipmentDataDO.setStationId(equipmentInfoVO.getStationId());
         equipmentDataDO.setStationName(equipmentInfoVO.getStationName());
-        equipmentDataDO.setUpdateTime(new Date());
-        equipmentDataDO.setCreateTime(new Date());
 
         // 跟油罐表建立关系
         OiltankDTO oiltankDTO = new OiltankDTO();
