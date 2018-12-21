@@ -6,12 +6,15 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.tuyou.mqtt.producer.enumeration.EquipmentTypeEnum;
 import com.tuyou.mqtt.producer.pojo.domain.EquipmentDataDO;
 import com.tuyou.mqtt.producer.pojo.domain.EquipmentInfoDO;
 import com.tuyou.mqtt.producer.pojo.dto.EquipmentDataDTO;
 import com.tuyou.mqtt.producer.repository.EquipmentInfoMapper;
 import com.tuyou.mqtt.producer.service.IEquipmentInfoService;
+import com.tuyou.mqtt.producer.service.IMqttGateway;
 import com.tuyou.mqtt.producer.util.json.ExtLimit;
+import com.tuyou.mqtt.producer.util.json.Info;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +36,9 @@ import java.util.Map;
 @Slf4j
 @Service
 public class EquipmentInfoServiceImpl extends ServiceImpl<EquipmentInfoMapper, EquipmentInfoDO> implements IEquipmentInfoService {
+    @Autowired
+    IMqttGateway iMqttGateway;
+
     /**
      * @param equipmentInfoDTO 请求equipmentInfoDTO数据
      * @return 响应Integer数据
@@ -50,10 +56,18 @@ public class EquipmentInfoServiceImpl extends ServiceImpl<EquipmentInfoMapper, E
             BeanUtils.copyProperties(equipmentInfoDTO, equipmentInfoDO);
             equipmentInfoDO.setCreatedTime(new Date());
             Integer addCount = super.baseMapper.insert(equipmentInfoDO);
-            log.info("设备注册成功{}",addCount);
+            log.info("设备注册成功{}", addCount);
+            if (equipmentInfoDTO.getEquipmentType().equals(EquipmentTypeEnum.ANDROID.getEquipmentType())) {
+                if (StringUtils.isNotBlank(equipmentInfoDTO.getEquipmentNo())){
+                    Info info = new Info();
+                    info.setStatus(HttpStatus.SC_OK);
+                    info.setMessage("设备号:".concat(equipmentInfoDTO.getEquipmentNo()).concat("注册成功！"));
+                    iMqttGateway.sendToMqtt(JSON.toJSONString(info), equipmentInfoDTO.getEquipmentNo());
+                }
+            }
             return addCount;
         }
-        log.info("设备数据重复。无法进行添加。设备NO:{}",selectCount);
+        log.info("设备数据重复。无法进行添加。设备NO:{}", selectCount);
         return 0;
     }
 
