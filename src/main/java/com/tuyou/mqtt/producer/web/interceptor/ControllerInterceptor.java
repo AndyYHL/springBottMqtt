@@ -17,35 +17,11 @@ public class ControllerInterceptor implements HandlerInterceptor {
         // 得到请求URL
         String url = request.getRequestURI();
         url = url.replace(request.getContextPath(), "");
-
+        log.info("请求的URL:{}",url);
         System.out.println("========preHandle=========");
         request.setAttribute("startTime",System.currentTimeMillis());
         System.out.println("startTime:"+ System.currentTimeMillis());
         return true;
-
-		/*if(url.startsWith("/resources/")) { //不拦截的资源
-			return true;
-		}
-		if(url.startsWith("/api/gis/")) { //不拦截的API接口请求
-			return true;
-		}
-		for(String s : uncheckUrlEnds) { //不拦截的url
-			if(url.endsWith(s)) {
-				return true;
-			}
-		}
-		if(isUserLogined()) {//已经登录
-			return true;
-		}
-		else {//没有登录
-			if(uncheckUrls.contains(url)) {//允许访问登录页面资源
-				return true;
-			}
-			else {
-				sendRedirectTo(request, response, "timeout", "/login");
-				return false;
-			}
-		}*/
     }
 
 
