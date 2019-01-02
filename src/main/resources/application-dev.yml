@@ -8,14 +8,14 @@ eureka:
     hostname: 192.168.40.35
     prefer-ip-address: true
     ip-address: ${spring.cloud.inetutils.default-ip-address}
-    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
     lease-renewal-interval-in-seconds: 30
     status-page-url-path: /api/v1/actuator/info
     health-check-url-path: /api/v1/actuator/health
   client:
     #服务注册中心
     service-url:
-     defaultZone: http://${eureka.instance.hostname}:${eureka.port}/eureka/
+     defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@${eureka.instance.hostname}:${eureka.port}/eureka/
     register-with-eureka: true
     fetch-registry: true
 
@@ -91,6 +91,10 @@ spring:
        default-ip-address: ${spring.cloud.client.ip-address}
        default-hostname: ${spring.cloud.client.ip-address}
        preferred-networks: ${spring.cloud.client.ip-address}
+  security:
+    user:
+      name: admin
+      password: tuyou!123
 mqtt:
   host: tcp://192.168.40.35:1883
   username: admin
