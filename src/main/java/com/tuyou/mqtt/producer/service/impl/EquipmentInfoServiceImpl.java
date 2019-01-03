@@ -49,6 +49,7 @@ public class EquipmentInfoServiceImpl extends ServiceImpl<EquipmentInfoMapper, E
         // 判断是否已经存在此设备
         QueryWrapper<EquipmentInfoDO> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda().eq(EquipmentInfoDO::getEquipmentNo, equipmentInfoDTO.getEquipmentNo());
+        log.info("执行的sql:{}",queryWrapper.getSqlSegment());
         Integer selectCount = super.baseMapper.selectCount(queryWrapper);
         if (selectCount == 0) {
             // 不存在，进行保存

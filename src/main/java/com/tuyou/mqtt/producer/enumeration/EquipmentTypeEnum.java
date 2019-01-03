@@ -16,6 +16,8 @@ public enum EquipmentTypeEnum {
     /**
      * 说明
      */
+    @Getter
+    @Setter
     private String description;
 
     EquipmentTypeEnum(int equipmentType, String description) {
