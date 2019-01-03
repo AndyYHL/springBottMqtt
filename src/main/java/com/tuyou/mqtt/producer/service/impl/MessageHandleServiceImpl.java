@@ -45,13 +45,13 @@ public class MessageHandleServiceImpl implements IMessageHandleService {
                     EquipmentInfoDTO equipmentInfoDTO = JSON.parseObject(message, EquipmentInfoDTO.class);
                     equipmentInfoService.saveEquipmentInfo(equipmentInfoDTO);
 
-                    if (equipmentInfoDTO.getEquipmentType().equals(EquipmentTypeEnum.ANDROID.getEquipmentType())) {
+                    /*if (equipmentInfoDTO.getEquipmentType().equals(EquipmentTypeEnum.ANDROID.getEquipmentType())) {
                         DeviceTeamFactory deviceTeamFactory = deviceAbstractFactory.getDeviceTeam(EquipmentTypeEnum.ANDROID);
                         deviceTeamFactory.deviceRegister(equipmentInfoDTO);
                     }else if (equipmentInfoDTO.getEquipmentType().equals(EquipmentTypeEnum.DEVICE.getEquipmentType())){
                         DeviceTeamFactory deviceTeamFactory = deviceAbstractFactory.getDeviceTeam(EquipmentTypeEnum.DEVICE);
                         deviceTeamFactory.deviceRegister(equipmentInfoDTO);
-                    }
+                    }*/
                 } else if (TopicEnum.OILTANKDATA.getDescription().equalsIgnoreCase(topic)) {
                     log.info("设备采集数据，主题:{},内容:{}", topic, message);
                     EquipmentDataDTO equipmentDataDTO = JSON.parseObject(message,EquipmentDataDTO.class);
