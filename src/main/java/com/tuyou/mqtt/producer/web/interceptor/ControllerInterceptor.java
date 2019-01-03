@@ -17,25 +17,25 @@ public class ControllerInterceptor implements HandlerInterceptor {
         // 得到请求URL
         String url = request.getRequestURI();
         url = url.replace(request.getContextPath(), "");
-        log.info("请求的URL:{}",url);
-        System.out.println("========preHandle=========");
-        request.setAttribute("startTime",System.currentTimeMillis());
-        System.out.println("startTime:"+ System.currentTimeMillis());
+        log.info("请求的URL:{}", url);
+        log.info("========preHandle=========");
+        request.setAttribute("startTime", System.currentTimeMillis());
+        log.info("startTime:{}", System.currentTimeMillis());
         return true;
     }
 
 
     @Override
     public void afterCompletion(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2, Exception arg3) throws Exception {
-        System.out.println("========afterCompletion=========");
+        log.info("========afterCompletion=========");
         Long start = (Long) arg0.getAttribute("startTime");
-        System.out.println("耗时:"+(System.currentTimeMillis() - start));
+        log.info("耗时:{}", (System.currentTimeMillis() - start));
     }
 
     @Override
     public void postHandle(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2, ModelAndView arg3) throws Exception {
-        System.out.println("========postHandle=========");
+        log.info("========postHandle=========");
         Long start = (Long) arg0.getAttribute("startTime");
-        System.out.println("耗时:"+(System.currentTimeMillis() - start));
+        log.info("耗时:{}", (System.currentTimeMillis() - start));
     }
 }
