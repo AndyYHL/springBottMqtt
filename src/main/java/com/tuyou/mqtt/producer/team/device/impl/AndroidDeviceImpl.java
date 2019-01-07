@@ -28,7 +28,8 @@ public class AndroidDeviceImpl implements DeviceTeamFactory {
         if (StringUtils.isNotBlank(equipmentInfoDTO.getEquipmentNo())){
             Info info = new Info();
             info.setStatus(HttpStatus.SC_OK);
-            info.setMessage("设备号:".concat(equipmentInfoDTO.getEquipmentNo()).concat("注册成功！"));
+            // 发送注册消息
+            info.setMessage("Android设备号:".concat(equipmentInfoDTO.getEquipmentNo()).concat("注册成功！"));
             iMqttGateway.sendToMqtt(JSON.toJSONString(info), equipmentInfoDTO.getEquipmentNo());
         }
 
