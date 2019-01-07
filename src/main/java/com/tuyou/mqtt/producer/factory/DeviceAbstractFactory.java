@@ -5,11 +5,13 @@ import com.tuyou.mqtt.producer.pojo.props.SpringContext;
 import com.tuyou.mqtt.producer.team.device.DeviceTeamFactory;
 import com.tuyou.mqtt.producer.team.device.impl.AndroidDeviceImpl;
 import com.tuyou.mqtt.producer.team.device.impl.HardwareDeviceImpl;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * @author yhl
  * 设备来源工厂
  */
+@Configuration
 public class DeviceAbstractFactory {
     /**
      * 工厂生产
