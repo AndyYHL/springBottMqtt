@@ -73,17 +73,6 @@ public class EquipmentInfoServiceImpl extends ServiceImpl<EquipmentInfoMapper, E
     }
 
     /**
-     * 保存非空值
-     *
-     * @param equipmentInfoDTO
-     * @return 响应Integer数据
-     */
-    @Override
-    public Integer saveEquipmentInfoNotNull(EquipmentInfoDTO equipmentInfoDTO) {
-        return 0;
-    }
-
-    /**
      * @param equipmentInfoDTO 请求equipmentInfoDTO数据
      * @return 响应boolean数据
      * @Description 修改设备信息
@@ -227,6 +216,27 @@ public class EquipmentInfoServiceImpl extends ServiceImpl<EquipmentInfoMapper, E
             equipmentInfoVOList = JSON.parseArray(JSON.toJSONString(equipmentInfoDOList.getRecords()), EquipmentInfoVO.class);
         }
         extLimit.setCount(new Long(equipmentInfoDOList.getTotal()).intValue());
+        return equipmentInfoVOList;
+    }
+
+    /**
+     * 根据分站ID来获取设备信息
+     * @param stationId 分站ID
+     * @return 设备信息
+     */
+    @Override
+    public List<EquipmentInfoVO> getEquipmentInfo(String stationId) {
+        List<EquipmentInfoVO> equipmentInfoVOList = null;
+
+        if (StringUtils.isNotBlank(stationId)) {
+            // 判断是否已经存在此设备
+            QueryWrapper<EquipmentInfoDO> queryWrapper = new QueryWrapper<>();
+            queryWrapper.lambda().eq(EquipmentInfoDO::getStationId, stationId);
+            List<EquipmentInfoDO> equipmentInfoDOList = super.baseMapper.selectList(queryWrapper);
+            if (equipmentInfoDOList.size() > 0){
+                equipmentInfoVOList = JSON.parseArray(JSON.toJSONString(equipmentInfoDOList),EquipmentInfoVO.class);
+            }
+        }
         return equipmentInfoVOList;
     }
 }

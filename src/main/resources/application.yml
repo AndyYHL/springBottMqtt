@@ -1,6 +1,6 @@
 spring:
   application:
-    name: tuyou-mqtt-producer
+    name: tuyou-mqtt
   http:
     encoding:
       charset: UTF-8

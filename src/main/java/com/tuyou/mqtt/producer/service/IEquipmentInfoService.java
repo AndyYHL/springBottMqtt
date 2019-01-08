@@ -1,5 +1,6 @@
 package com.tuyou.mqtt.producer.service;
 
+import com.tuyou.mqtt.producer.pojo.domain.EquipmentInfoDO;
 import com.tuyou.mqtt.producer.pojo.dto.EquipmentInfoDTO;
 import com.tuyou.mqtt.producer.pojo.vo.EquipmentInfoVO;
 import com.tuyou.mqtt.producer.util.json.ExtLimit;
@@ -23,13 +24,6 @@ public interface IEquipmentInfoService{
     Integer saveEquipmentInfo(EquipmentInfoDTO equipmentInfoDTO);
 
     /**
-     * 保存非空值
-     * @param equipmentInfoDTO
-     * @return 响应Integer数据
-     */
-    Integer saveEquipmentInfoNotNull(EquipmentInfoDTO equipmentInfoDTO);
-
-    /**
      * 修改设备信息
      * @Description 修改设备信息
      * @param equipmentInfoDTO 请求equipmentInfoDTO数据
@@ -44,6 +38,13 @@ public interface IEquipmentInfoService{
      * @return 响应Integer数据
      */
     Integer delEquipmentInfo(EquipmentInfoDTO equipmentInfoDTO);
+
+    /**
+     * 根据分站ID来获取设备信息
+     * @param stationId 分站ID
+     * @return 设备信息
+     */
+    List<EquipmentInfoVO> getEquipmentInfo(String stationId);
 
     /**
      * 查询设备信息详情
