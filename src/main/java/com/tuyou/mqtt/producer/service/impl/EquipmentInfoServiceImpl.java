@@ -58,14 +58,6 @@ public class EquipmentInfoServiceImpl extends ServiceImpl<EquipmentInfoMapper, E
             equipmentInfoDO.setCreatedTime(new Date());
             Integer addCount = super.baseMapper.insert(equipmentInfoDO);
             log.info("设备注册成功{}", addCount);
-            if (equipmentInfoDTO.getEquipmentType().equals(EquipmentTypeEnum.ANDROID.getEquipmentType())) {
-                if (StringUtils.isNotBlank(equipmentInfoDTO.getEquipmentNo())){
-                    Info info = new Info();
-                    info.setStatus(HttpStatus.SC_OK);
-                    info.setMessage("设备号:".concat(equipmentInfoDTO.getEquipmentNo()).concat("注册成功！"));
-                    iMqttGateway.sendToMqtt(JSON.toJSONString(info), equipmentInfoDTO.getEquipmentNo());
-                }
-            }
             return addCount;
         }
         log.info("设备数据重复。无法进行添加。设备NO:{}", selectCount);

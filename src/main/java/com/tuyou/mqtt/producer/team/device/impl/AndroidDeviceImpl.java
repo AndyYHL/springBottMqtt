@@ -6,6 +6,7 @@ import com.tuyou.mqtt.producer.service.IEquipmentInfoService;
 import com.tuyou.mqtt.producer.service.IMqttGateway;
 import com.tuyou.mqtt.producer.team.device.DeviceTeamFactory;
 import com.tuyou.mqtt.producer.util.json.Info;
+import net.toyou.pojo.swagger2.ResponseResult;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,15 +27,15 @@ public class AndroidDeviceImpl implements DeviceTeamFactory {
     public Integer deviceRegister(EquipmentInfoDTO equipmentInfoDTO) {
         // 判断是否已经存在此设备
         Integer addDeviceCount = equipmentInfoService.saveEquipmentInfo(equipmentInfoDTO);
-
-        if (StringUtils.isNotBlank(equipmentInfoDTO.getEquipmentNo())){
-            Info info = new Info();
-            info.setStatus(HttpStatus.SC_OK);
-            // 发送注册消息
-            info.setMessage("Android设备号:".concat(equipmentInfoDTO.getEquipmentNo()).concat("注册成功！"));
-            iMqttGateway.sendToMqtt(JSON.toJSONString(info), equipmentInfoDTO.getEquipmentNo());
+        if (addDeviceCount > 0){
+            if (StringUtils.isNotBlank(equipmentInfoDTO.getEquipmentNo())){
+                ResponseResult result = new ResponseResult();
+                result.setCode(HttpStatus.SC_OK);
+                // 发送注册消息
+                result.setMessage("Android设备号:".concat(equipmentInfoDTO.getEquipmentNo()).concat("注册成功！"));
+                iMqttGateway.sendToMqtt(JSON.toJSONString(result), equipmentInfoDTO.getEquipmentNo());
+            }
         }
-
         return addDeviceCount;
     }
 }
