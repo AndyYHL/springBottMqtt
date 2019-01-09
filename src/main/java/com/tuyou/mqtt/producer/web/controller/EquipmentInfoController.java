@@ -3,10 +3,8 @@ package com.tuyou.mqtt.producer.web.controller;
 import com.tuyou.mqtt.producer.constant.ClientApiFinal;
 import com.tuyou.mqtt.producer.pojo.vo.EquipmentInfoVO;
 import com.tuyou.mqtt.producer.service.IEquipmentInfoService;
-import io.swagger.annotations.Api;
+import io.swagger.annotations.*;
 import net.toyou.pojo.swagger2.DataResponseResult;
-import net.toyou.pojo.swagger2.PagingResponse;
-import net.toyou.pojo.swagger2.PagingResponseResult;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +31,13 @@ public class EquipmentInfoController {
      * 获取根据站点获取设备信息
      * @param stationId
      */
+    @ApiOperation(value = "根据站点ID获取这点注册的设备", notes = "获取设备")
+    @ApiImplicitParam(name = "stationId", value = "站点ID", required = true)
+    @ApiResponses({
+            @ApiResponse(code = HttpStatus.SC_OK, message = "新增成功!"),
+            @ApiResponse(code = HttpStatus.SC_FAILED_DEPENDENCY, message = "参数不完整!"),
+            @ApiResponse(code = HttpStatus.SC_BAD_REQUEST, message = "请求异常!")
+    })
     @GetMapping(value = "/{stationId}")
     public DataResponseResult<List<EquipmentInfoVO>> getEquipmentInfo(@PathVariable("stationId") String stationId){
 
