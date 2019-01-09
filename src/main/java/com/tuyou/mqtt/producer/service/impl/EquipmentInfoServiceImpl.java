@@ -3,31 +3,26 @@ package com.tuyou.mqtt.producer.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.tuyou.mqtt.producer.enumeration.EquipmentTypeEnum;
-import com.tuyou.mqtt.producer.pojo.domain.EquipmentDataDO;
 import com.tuyou.mqtt.producer.pojo.domain.EquipmentInfoDO;
-import com.tuyou.mqtt.producer.pojo.dto.EquipmentDataDTO;
+import com.tuyou.mqtt.producer.pojo.dto.EquipmentInfoDTO;
+import com.tuyou.mqtt.producer.pojo.vo.EquipmentInfoVO;
 import com.tuyou.mqtt.producer.repository.EquipmentInfoMapper;
 import com.tuyou.mqtt.producer.service.IEquipmentInfoService;
 import com.tuyou.mqtt.producer.service.IMqttGateway;
 import com.tuyou.mqtt.producer.util.json.ExtLimit;
-import com.tuyou.mqtt.producer.util.json.Info;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import com.tuyou.mqtt.producer.pojo.dto.EquipmentInfoDTO;
-import com.tuyou.mqtt.producer.pojo.vo.EquipmentInfoVO;
 import org.springframework.beans.BeanUtils;
-import org.apache.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author yhl
@@ -49,7 +44,7 @@ public class EquipmentInfoServiceImpl extends ServiceImpl<EquipmentInfoMapper, E
         // 判断是否已经存在此设备
         QueryWrapper<EquipmentInfoDO> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda().eq(EquipmentInfoDO::getEquipmentNo, equipmentInfoDTO.getEquipmentNo());
-        log.info("执行的sql:{}",queryWrapper.getSqlSegment());
+        log.info("执行的sql:{}", queryWrapper.getSqlSegment());
         Integer selectCount = super.baseMapper.selectCount(queryWrapper);
         if (selectCount == 0) {
             // 不存在，进行保存
@@ -73,8 +68,10 @@ public class EquipmentInfoServiceImpl extends ServiceImpl<EquipmentInfoMapper, E
     public boolean uptEquipmentInfo(EquipmentInfoDTO equipmentInfoDTO) {
         EquipmentInfoDO equipmentInfoDO = new EquipmentInfoDO();
         BeanUtils.copyProperties(equipmentInfoDTO, equipmentInfoDO);
-
-        int uptCount = super.baseMapper.updateById(equipmentInfoDO);
+        UpdateWrapper<EquipmentInfoDO> updateWrapper = new UpdateWrapper<>();
+        // 根据设备NO进行更新数据
+        updateWrapper.lambda().eq(EquipmentInfoDO::getEquipmentNo, equipmentInfoDTO.getEquipmentNo());
+        int uptCount = super.baseMapper.update(equipmentInfoDO, updateWrapper);
         if (uptCount == 0) {
             return false;
         }
@@ -213,6 +210,7 @@ public class EquipmentInfoServiceImpl extends ServiceImpl<EquipmentInfoMapper, E
 
     /**
      * 根据分站ID来获取设备信息
+     *
      * @param stationId 分站ID
      * @return 设备信息
      */
@@ -225,8 +223,8 @@ public class EquipmentInfoServiceImpl extends ServiceImpl<EquipmentInfoMapper, E
             QueryWrapper<EquipmentInfoDO> queryWrapper = new QueryWrapper<>();
             queryWrapper.lambda().eq(EquipmentInfoDO::getStationId, stationId);
             List<EquipmentInfoDO> equipmentInfoDOList = super.baseMapper.selectList(queryWrapper);
-            if (equipmentInfoDOList.size() > 0){
-                equipmentInfoVOList = JSON.parseArray(JSON.toJSONString(equipmentInfoDOList),EquipmentInfoVO.class);
+            if (equipmentInfoDOList.size() > 0) {
+                equipmentInfoVOList = JSON.parseArray(JSON.toJSONString(equipmentInfoDOList), EquipmentInfoVO.class);
             }
         }
         return equipmentInfoVOList;
