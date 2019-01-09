@@ -71,7 +71,10 @@ public class MQTTServerController {
             // 匹配消息
             if (sendMqttCriteria.getMessageType().equals(SendMessageCodeEnum.MATCHING.getCode())) {
                 dataResponseResult.setCode(SendMessageCodeEnum.MATCHING.getCode());
-                dataResponseResult.setData(sendMqttCriteria.getSendData());
+                // 转成Map加入对象
+                Map map = JSON.parseObject(sendMqttCriteria.getSendData(),Map.class);
+                log.info("转成的Map的字符串是:{}",JSON.toJSONString(map));
+                dataResponseResult.setData(map);
             }
 
             log.info("开始发送消息:{}", JSON.toJSONString(dataResponseResult));
