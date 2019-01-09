@@ -15,6 +15,8 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 public class SendMqttCriteria {
+    @ApiModelProperty(value="消费类型",name="messageType",required=true,dataType = "String")
+    private Integer messageType;
     /**
      * 发送消息的主题
      */
@@ -23,6 +25,6 @@ public class SendMqttCriteria {
     /**
      * 发送的消息内容
      */
-    @ApiModelProperty(value="发送的内容",name="sendData",required=true,dataType = "Int")
+    @ApiModelProperty(value="发送的内容",name="sendData",required=true,dataType = "String")
     private String sendData;
 }
