@@ -27,18 +27,25 @@ public class AndroidDeviceImpl implements DeviceTeamFactory {
 
     @Override
     public Integer deviceRegister(EquipmentInfoDTO equipmentInfoDTO) {
+        ResponseResult result = new ResponseResult();
         // 判断是否已经存在此设备
-        Integer addDeviceCount = equipmentInfoService.saveEquipmentInfo(equipmentInfoDTO);
+        Integer addDeviceCount = this.equipmentInfoService.saveEquipmentInfo(equipmentInfoDTO);
         if (addDeviceCount > 0) {
             if (StringUtils.isNotBlank(equipmentInfoDTO.getEquipmentNo())) {
-                ResponseResult result = new ResponseResult();
                 result.setCode(HttpStatus.SC_OK);
                 // 发送注册消息
                 result.setMessage("Android设备号:".concat(equipmentInfoDTO.getEquipmentNo()).concat("注册成功！"));
                 iMqttGateway.sendToMqtt(JSON.toJSONString(result), equipmentInfoDTO.getEquipmentNo());
             }
         } else {
-            log.info("设备{}注册失败", JSON.toJSONString(equipmentInfoDTO));
+            if (this.equipmentInfoService.uptEquipmentInfo(equipmentInfoDTO)) {
+                // 发送注册消息
+                result.setMessage("Android设备号:".concat(equipmentInfoDTO.getEquipmentNo()).concat("注册成功！"));
+                iMqttGateway.sendToMqtt(JSON.toJSONString(result), equipmentInfoDTO.getEquipmentNo());
+                log.info("更新设备:{}", JSON.toJSONString(equipmentInfoDTO));
+            } else {
+                log.info("设备处理失败", JSON.toJSONString(equipmentInfoDTO));
+            }
         }
         return addDeviceCount;
     }
