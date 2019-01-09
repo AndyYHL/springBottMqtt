@@ -7,6 +7,7 @@ import com.tuyou.mqtt.producer.pojo.dto.EquipmentInfoDTO;
 import com.tuyou.mqtt.producer.pojo.vo.ExcelDataVO;
 import com.tuyou.mqtt.producer.pojo.vo.TitlesTtempletVO;
 import com.tuyou.mqtt.producer.util.PoiUtil;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpStatus;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,6 +33,8 @@ import java.util.*;
  * @author yhl
  * 导出数据说明
  */
+@ApiIgnore(value = "不显示")
+@Api(tags = "导出操作类",value = "导出操作类",hidden = true)
 @Slf4j
 @RestController
 @RequestMapping(value = ClientApiFinal.version + "actuator/")

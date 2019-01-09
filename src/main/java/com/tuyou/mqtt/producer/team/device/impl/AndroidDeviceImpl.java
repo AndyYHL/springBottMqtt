@@ -9,11 +9,13 @@ import com.tuyou.mqtt.producer.util.json.Info;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * @author yhl
  * Android 设备注册
  */
+@Component
 public class AndroidDeviceImpl implements DeviceTeamFactory {
     @Autowired
     IEquipmentInfoService equipmentInfoService;

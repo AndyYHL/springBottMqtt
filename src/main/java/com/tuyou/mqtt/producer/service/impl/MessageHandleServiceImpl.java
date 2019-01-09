@@ -43,7 +43,7 @@ public class MessageHandleServiceImpl implements IMessageHandleService {
                 if (TopicEnum.DEVICEREGISTER.getDescription().equalsIgnoreCase(topic)) {
                     log.info("设备注册，主题:{},内容:{}", topic, message);
                     EquipmentInfoDTO equipmentInfoDTO = JSON.parseObject(message, EquipmentInfoDTO.class);
-                    // equipmentInfoService.saveEquipmentInfo(equipmentInfoDTO);
+                    //equipmentInfoService.saveEquipmentInfo(equipmentInfoDTO);
 
                     if (equipmentInfoDTO.getEquipmentType().equals(EquipmentTypeEnum.ANDROID.getEquipmentType())) {
                         DeviceTeamFactory deviceTeamFactory = deviceAbstractFactory.getDeviceTeam(EquipmentTypeEnum.ANDROID);

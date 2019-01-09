@@ -1,8 +1,10 @@
 package com.tuyou.mqtt.producer.web.controller;
 
 import com.tuyou.mqtt.producer.pojo.vo.User;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -10,6 +12,8 @@ import javax.servlet.http.HttpSession;
 /**
  * @author yhl
  */
+@ApiIgnore(value = "不显示")
+@Api(tags = "用户登录",value = "用户登录",hidden = true)
 @RestController
 @RequestMapping(value = "/")
 public class IndexController {

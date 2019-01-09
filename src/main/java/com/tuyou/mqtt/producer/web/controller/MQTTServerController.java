@@ -3,6 +3,7 @@ package com.tuyou.mqtt.producer.web.controller;
 import com.tuyou.mqtt.producer.constant.ClientApiFinal;
 import com.tuyou.mqtt.producer.service.IEmqService;
 import com.tuyou.mqtt.producer.service.IMqttGateway;
+import io.swagger.annotations.Api;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author yhl
  * mqtt 发送消息
  */
+@Api(tags = "消息推送",value = "消息推送",hidden = true)
 @RestController
 @RequestMapping(value = ClientApiFinal.version + "mqtt/")
 public class MQTTServerController {

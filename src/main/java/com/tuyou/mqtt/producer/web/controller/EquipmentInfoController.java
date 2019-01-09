@@ -3,6 +3,7 @@ package com.tuyou.mqtt.producer.web.controller;
 import com.tuyou.mqtt.producer.constant.ClientApiFinal;
 import com.tuyou.mqtt.producer.pojo.vo.EquipmentInfoVO;
 import com.tuyou.mqtt.producer.service.IEquipmentInfoService;
+import io.swagger.annotations.Api;
 import net.toyou.pojo.swagger2.DataResponseResult;
 import net.toyou.pojo.swagger2.PagingResponse;
 import net.toyou.pojo.swagger2.PagingResponseResult;
@@ -21,6 +22,7 @@ import java.util.List;
  * @author yhl
  *
  */
+@Api(tags = "设备信息",value = "设备操作类")
 @RestController
 @RequestMapping(value = ClientApiFinal.version + "equipmentInfo/")
 public class EquipmentInfoController {
@@ -32,22 +34,18 @@ public class EquipmentInfoController {
      * @param stationId
      */
     @GetMapping(value = "/{stationId}")
-    public PagingResponseResult<EquipmentInfoVO> getEquipmentInfo(@PathVariable("stationId") String stationId){
+    public DataResponseResult<List<EquipmentInfoVO>> getEquipmentInfo(@PathVariable("stationId") String stationId){
 
-        PagingResponseResult<EquipmentInfoVO> pagingResponseResult = new PagingResponseResult<>();
-        PagingResponse<EquipmentInfoVO> pagingResponse = new PagingResponse<>();
+        DataResponseResult<List<EquipmentInfoVO>> dataResponseResult = new DataResponseResult<>();
 
         if (StringUtils.isBlank(stationId)){
-            pagingResponseResult.setCode(HttpStatus.SC_BAD_REQUEST);
-            pagingResponseResult.setMessage("请求站点为空");
+            dataResponseResult.setCode(HttpStatus.SC_BAD_REQUEST);
+            dataResponseResult.setMessage("请求站点为空");
         }
         List<EquipmentInfoVO> equipmentInfoVOList = this.equipmentInfoService.getEquipmentInfo(stationId);
-        pagingResponse.setList(equipmentInfoVOList);
-
-        pagingResponseResult.setPaging(pagingResponse);
-        pagingResponseResult.setCode(HttpStatus.SC_OK);
-        pagingResponseResult.setMessage("获取成功");
-
-        return pagingResponseResult;
+        dataResponseResult.setData(equipmentInfoVOList);
+        dataResponseResult.setCode(HttpStatus.SC_OK);
+        dataResponseResult.setMessage("获取成功");
+        return dataResponseResult;
     }
 }

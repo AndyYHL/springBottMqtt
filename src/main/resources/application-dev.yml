@@ -115,9 +115,9 @@ mqtt:
   #会话心跳时间 单位为秒
   keepAliveInterval: 5
   #消息发布者clientId
-  publishClientId: mqtt_publish_01
+  publishClientId: mqtt_publish_service_01
   #消息订阅者clientId
-  subscribeClientId: mqtt_subscribe_01
+  subscribeClientId: mqtt_subscribe_service_01
   #连接超时
   completionTimeout: 3000
 

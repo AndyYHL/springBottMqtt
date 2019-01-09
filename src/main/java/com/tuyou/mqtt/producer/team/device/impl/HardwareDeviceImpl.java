@@ -4,11 +4,13 @@ import com.tuyou.mqtt.producer.pojo.dto.EquipmentInfoDTO;
 import com.tuyou.mqtt.producer.service.IEquipmentInfoService;
 import com.tuyou.mqtt.producer.team.device.DeviceTeamFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * @author yhl
  * 硬件设备 设备注册
  */
+@Component
 public class HardwareDeviceImpl implements DeviceTeamFactory {
     @Autowired
     IEquipmentInfoService equipmentInfoService;
