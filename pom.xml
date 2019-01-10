@@ -191,6 +191,12 @@
             <version>${commons.version}</version>
         </dependency>
 
+        <!--日志切面-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>net.toyou</groupId>
             <artifactId>pojo</artifactId>
