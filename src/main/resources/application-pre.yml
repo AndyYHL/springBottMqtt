@@ -34,9 +34,9 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.66.210:3306/device?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useUnicode=true&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2b8
-    username: root
-    password: Xaky=ll5Y0UT
+    url: jdbc:mysql://rm-bp17yj8x7672i0g64oo.mysql.rds.aliyuncs.com:3306/device?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useUnicode=true&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2b8
+    username: zny
+    password: xdJk20180712
     initialSize: 3
     minIdle: 3
     maxActive: 30
@@ -70,7 +70,7 @@ spring:
     host: 192.168.14.211
     port: 16379
     database: 0
-    password:
+    password: Master@#$163
     jedis:
       pool:
         # 连接池中的最大空闲连接
