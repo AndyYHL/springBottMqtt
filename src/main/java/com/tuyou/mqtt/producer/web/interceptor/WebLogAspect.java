@@ -1,5 +1,6 @@
 package com.tuyou.mqtt.producer.web.interceptor;
 
+import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -52,7 +53,7 @@ public class WebLogAspect {
     @AfterReturning(returning = "ret", pointcut = "logPointCut()")
     public void doAfterReturning(Object ret) {
         // 处理完请求，返回内容(返回值太复杂时，打印的是物理存储空间的地址)
-        log.info("返回值 : " + ret);
+        log.info("返回值 : " + JSON.toJSONString(ret));
     }
 
     /**
