@@ -29,7 +29,7 @@ public class CheckCodeUtil {
      */
     public static String getCheckCode(Map<String, String> dataMap, String privateKey) {
         Map<String, String> sMap = sortMapByKeyObject(dataMap);
-        StringBuffer encryptStr = new StringBuffer();
+        StringBuilder encryptStr = new StringBuilder();
         for (Map.Entry<String, String> entry : sMap.entrySet()) {
             if (entry.getKey() != null && StringUtils.isNotEmpty(String.valueOf(entry.getValue()))) {
                 encryptStr.append(entry.getKey())
@@ -73,7 +73,7 @@ public class CheckCodeUtil {
      */
     private static String getSign(Map map, String privateKay) {
         Map<String, String> sMap = sortMapByKeyObject(map);
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (Map.Entry<String, String> entry : sMap.entrySet()) {
             sb.append(entry.getValue());
         }
