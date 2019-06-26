@@ -29,10 +29,31 @@ public class GlobalExceptionControllerAdvice {
      */
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
-    public ResponseResult jsonHandler(HttpServletRequest request, Exception e) throws Exception {
+    public ResponseResult jsonHandler(HttpServletRequest request, Exception e) {
         // 调用异常
         log(e, request);
         return new ResponseResult(HttpStatus.SC_GATEWAY_TIMEOUT, e.getMessage());
+    }
+
+    /**
+     * RuntimeException 异常处理
+     *
+     * @param e RuntimeException 异常处理
+     * @return 返回JSON
+     */
+    @ExceptionHandler(RuntimeException.class)
+    @ResponseBody
+    public ResponseResult handleFeignResultStatusException(HttpServletRequest request, RuntimeException e) {
+        // 调用异常
+        log(e, request);
+        return fillResponseResult(HttpStatus.SC_EXPECTATION_FAILED, e);
+    }
+
+    private ResponseResult fillResponseResult(Integer code, Exception e) {
+        ResponseResult responseResult = new ResponseResult();
+        responseResult.setMessage(e.getMessage());
+        responseResult.setCode(code);
+        return responseResult;
     }
 
     private void log(Exception ex, HttpServletRequest request) {
