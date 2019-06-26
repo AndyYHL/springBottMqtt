@@ -1,7 +1,6 @@
 package com.tuyou.mqtt.producer.web.handle;
 
-import com.tuyou.mqtt.producer.util.json.Info;
-import com.tuyou.mqtt.producer.util.json.JsonUtil;
+import com.tuyou.mqtt.producer.pojo.swagger2.ResponseResult;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -30,15 +29,10 @@ public class GlobalExceptionControllerAdvice {
      */
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
-    public JsonUtil jsonHandler(HttpServletRequest request, Exception e) throws Exception {
-        JsonUtil jsonUtil = new JsonUtil();
-        Info info = new Info();
-        info.setMessage(e.getMessage());
-        info.setStatus(HttpStatus.SC_GATEWAY_TIMEOUT);
-        jsonUtil.setInfo(info);
+    public ResponseResult jsonHandler(HttpServletRequest request, Exception e) throws Exception {
         // 调用异常
         log(e, request);
-        return jsonUtil;
+        return new ResponseResult(HttpStatus.SC_GATEWAY_TIMEOUT, e.getMessage());
     }
 
     private void log(Exception ex, HttpServletRequest request) {

@@ -1,6 +1,5 @@
 package com.tuyou.mqtt.producer.pojo.param;
 
-import com.tuyou.mqtt.producer.util.json.ExtLimit;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -56,10 +55,4 @@ public class EquipmentDataPARAM {
      */
     @ApiModelProperty(value="油品名称",name="oils",dataType = "String")
     private String oils;
-    /**
-     * 分页参数
-     */
-    @NotNull(message = "分页参数不能为空")
-    @ApiModelProperty(value="分页参数",name="extLimit",required=true,dataType = "ExtLimit")
-    private ExtLimit extLimit;
 }

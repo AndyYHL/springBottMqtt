@@ -7,21 +7,19 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tuyou.mqtt.producer.pojo.domain.EquipmentDataDO;
+import com.tuyou.mqtt.producer.pojo.dto.EquipmentDataDTO;
 import com.tuyou.mqtt.producer.pojo.dto.EquipmentInfoDTO;
 import com.tuyou.mqtt.producer.pojo.dto.OiltankDTO;
+import com.tuyou.mqtt.producer.pojo.vo.EquipmentDataVO;
 import com.tuyou.mqtt.producer.pojo.vo.EquipmentInfoVO;
 import com.tuyou.mqtt.producer.pojo.vo.OiltankVO;
 import com.tuyou.mqtt.producer.repository.EquipmentDataMapper;
 import com.tuyou.mqtt.producer.service.IEquipmentDataService;
 import com.tuyou.mqtt.producer.service.IEquipmentInfoService;
 import com.tuyou.mqtt.producer.service.IOiltankService;
-import com.tuyou.mqtt.producer.util.json.ExtLimit;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import com.tuyou.mqtt.producer.pojo.dto.EquipmentDataDTO;
-import com.tuyou.mqtt.producer.pojo.vo.EquipmentDataVO;
 import org.springframework.beans.BeanUtils;
-import org.apache.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -31,7 +29,6 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author yhl
@@ -202,7 +199,7 @@ public class EquipmentDataServiceImpl extends ServiceImpl<EquipmentDataMapper, E
      * @Description 查询列表设备数据(带分页)
      */
     @Override
-    public List<EquipmentDataVO> findEquipmentDataLimit(EquipmentDataDTO equipmentDataDTO, ExtLimit extLimit) {
+    public List<EquipmentDataVO> findEquipmentDataLimit(EquipmentDataDTO equipmentDataDTO) {
         QueryWrapper<EquipmentDataDO> queryWrapper = new QueryWrapper<>();
         //lambada 条件
         LambdaQueryWrapper<EquipmentDataDO> lambdaQueryWrapper = queryWrapper.lambda();
@@ -226,7 +223,7 @@ public class EquipmentDataServiceImpl extends ServiceImpl<EquipmentDataMapper, E
         System.out.println(queryWrapper.getSqlSegment());
 
         List<EquipmentDataVO> equipmentDataVOList = new ArrayList<>();
-        if (null == extLimit) {
+        /*if (null == extLimit) {
             List<EquipmentDataDO> equipmentDataDOList = super.baseMapper.selectList(queryWrapper);
             if (equipmentDataDOList.size() > 0) {
                 equipmentDataVOList = JSON.parseArray(JSON.toJSONString(equipmentDataDOList), EquipmentDataVO.class);
@@ -239,7 +236,11 @@ public class EquipmentDataServiceImpl extends ServiceImpl<EquipmentDataMapper, E
         if (equipmentDataDOList.getRecords().size() > 0) {
             equipmentDataVOList = JSON.parseArray(JSON.toJSONString(equipmentDataDOList.getRecords()), EquipmentDataVO.class);
         }
-        extLimit.setCount(new Long(equipmentDataDOList.getTotal()).intValue());
+        extLimit.setCount(new Long(equipmentDataDOList.getTotal()).intValue());*/
+        List<EquipmentDataDO> equipmentDataDOList = super.baseMapper.selectList(queryWrapper);
+        if (equipmentDataDOList.size() > 0) {
+            equipmentDataVOList = JSON.parseArray(JSON.toJSONString(equipmentDataDOList), EquipmentDataVO.class);
+        }
         return equipmentDataVOList;
     }
 }

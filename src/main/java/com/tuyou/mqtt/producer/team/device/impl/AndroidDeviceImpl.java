@@ -5,7 +5,6 @@ import com.tuyou.mqtt.producer.pojo.dto.EquipmentInfoDTO;
 import com.tuyou.mqtt.producer.service.IEquipmentInfoService;
 import com.tuyou.mqtt.producer.service.IMqttGateway;
 import com.tuyou.mqtt.producer.team.device.DeviceTeamFactory;
-import com.tuyou.mqtt.producer.util.json.Info;
 import lombok.extern.slf4j.Slf4j;
 import net.toyou.pojo.swagger2.ResponseResult;
 import org.apache.commons.lang.StringUtils;

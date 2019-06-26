@@ -4,8 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tuyou.mqtt.producer.pojo.domain.EquipmentInfoDO;
 import com.tuyou.mqtt.producer.pojo.dto.EquipmentInfoDTO;
@@ -13,7 +11,6 @@ import com.tuyou.mqtt.producer.pojo.vo.EquipmentInfoVO;
 import com.tuyou.mqtt.producer.repository.EquipmentInfoMapper;
 import com.tuyou.mqtt.producer.service.IEquipmentInfoService;
 import com.tuyou.mqtt.producer.service.IMqttGateway;
-import com.tuyou.mqtt.producer.util.json.ExtLimit;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -159,7 +156,7 @@ public class EquipmentInfoServiceImpl extends ServiceImpl<EquipmentInfoMapper, E
      * @Description 查询列表设备信息(带分页)
      */
     @Override
-    public List<EquipmentInfoVO> findEquipmentInfoLimit(EquipmentInfoDTO equipmentInfoDTO, ExtLimit extLimit) {
+    public List<EquipmentInfoVO> findEquipmentInfoLimit(EquipmentInfoDTO equipmentInfoDTO) {
         QueryWrapper<EquipmentInfoDO> queryWrapper = new QueryWrapper<>();
         // lambada 条件
         LambdaQueryWrapper<EquipmentInfoDO> lambdaQueryWrapper = queryWrapper.lambda();
@@ -190,7 +187,7 @@ public class EquipmentInfoServiceImpl extends ServiceImpl<EquipmentInfoMapper, E
         System.out.println(queryWrapper.getSqlSegment());
 
         List<EquipmentInfoVO> equipmentInfoVOList = new ArrayList<>();
-        if (null == extLimit) {
+        /*if (null == "") {
             List<EquipmentInfoDO> equipmentInfoDOList = super.baseMapper.selectList(queryWrapper);
             if (equipmentInfoDOList.size() > 0) {
                 equipmentInfoVOList = JSON.parseArray(JSON.toJSONString(equipmentInfoDOList), EquipmentInfoVO.class);
@@ -203,8 +200,11 @@ public class EquipmentInfoServiceImpl extends ServiceImpl<EquipmentInfoMapper, E
         IPage<EquipmentInfoDO> equipmentInfoDOList = super.baseMapper.selectPage(equipmentInfoDOIPage, queryWrapper);
         if (equipmentInfoDOList.getRecords().size() > 0) {
             equipmentInfoVOList = JSON.parseArray(JSON.toJSONString(equipmentInfoDOList.getRecords()), EquipmentInfoVO.class);
+        }*/
+        List<EquipmentInfoDO> equipmentInfoDOList = super.baseMapper.selectList(queryWrapper);
+        if (equipmentInfoDOList.size() > 0) {
+            equipmentInfoVOList = JSON.parseArray(JSON.toJSONString(equipmentInfoDOList), EquipmentInfoVO.class);
         }
-        extLimit.setCount(new Long(equipmentInfoDOList.getTotal()).intValue());
         return equipmentInfoVOList;
     }
 
