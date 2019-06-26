@@ -1,7 +1,3 @@
-server:
-  port: 88
-  tomcat:
-    uri-encoding: utf-8
 eureka:
   port: 81
   instance:
