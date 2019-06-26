@@ -11,7 +11,7 @@ spring:
 
 mybatisPlus:
   mapperLocations: classpath:mapper/*.xml
-  typeEnumsPackage: com.tuyou.mqtt.producer.enumeration
+  typeEnumsPackage: com.tuyou.mqtt.producer.enumeration.*
   globalConfig:
     dbConfig:
       idType: uuid
