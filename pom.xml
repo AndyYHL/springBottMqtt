@@ -28,7 +28,7 @@
         <poi-ooxml>3.17</poi-ooxml>
         <poi-ooxml-schemas>3.7</poi-ooxml-schemas>
         <commons.lang3.version>3.8</commons.lang3.version>
-        <httpcomponents.version>4.3.3</httpcomponents.version>
+        <httpcomponents.version>4.5.13</httpcomponents.version>
         <httpcomponents.httpmime.version>4.3.1</httpcomponents.httpmime.version>
         <springfox.swagger2.version>2.9.2</springfox.swagger2.version>
         <mybatis.plus.boot.starter.version>3.0.2</mybatis.plus.boot.starter.version>
